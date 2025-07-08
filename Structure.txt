@@ -1,0 +1,74 @@
+File Structure:
+
+CaptainsLedgerBackend:
+
+src/main/java/
+	- com/au/cl
+		- Application
+		- config
+			- SecurityConfig.java
+			- WebConfig.java
+		- controller
+			- AuthController.java
+			- UserController.java
+		- dto
+			- UserCreateRequest.java
+		- model
+			- AuthRequest.java
+			- AuthResponse.java
+			- Role.java (Enum)
+			- User.java
+		- repository
+			- UserRepository.java (Interface)
+		- service
+			- UserDetailsServiceImpl.java
+		- util
+			- JwtUtil.java
+src/main/resources/
+
+- application.properties
+- template
+- static
+	- css
+		- index.css (done)
+		- register.css (done)
+		- style.css (done)
+		- dashboard.css
+
+	- js
+		- style.js (done)
+		- script.js (done)
+		- register.js (done)
+		- dashboard.js
+		- send-money.js
+		- my-transactions.js
+		- submit-feedback.js
+		- my-missions.js
+		- avengers-payment.js
+		- manage-missions.js
+		- post-announcements.js
+		- view-feedback.js
+		- stats.js
+		- attendance.js
+
+	- html
+		- index.html (done)
+		- dashboard.html (done)
+		- register.html (done)
+		- send-money.html
+		- my-transactions.html
+		- submit-feedback.html
+		- my-missions.html
+		- avengers-payment.html
+		- manage-missions.html
+		- post-announcements.html
+		- view-feedback.html
+		- stats.html
+		- attendance.html
+	
+	- videos
+		- marvel_intro.mp4
+
+	- images
+		- avengers.ico
+		- marvel_intro_poster.jpg

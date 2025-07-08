@@ -1,0 +1,88 @@
+------------------------- Users --------------------------------
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'AVENGER') NOT NULL,
+    balance DOUBLE NOT NULL DEFAULT 0.0
+);
+
+------------------------- Transactions --------------------------------
+CREATE TABLE transactions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sender_user_id BIGINT NOT NULL,
+    receiver_user_id BIGINT NOT NULL,
+    amount DOUBLE NOT NULL,
+    transaction_type ENUM('SEND_MONEY', 'SALARY') NOT NULL, -- You can expand this later if needed
+    transaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    description VARCHAR(500),
+    FOREIGN KEY (sender_user_id) REFERENCES users(id),
+    FOREIGN KEY (receiver_user_id) REFERENCES users(id)
+);
+
+------------------------- Missions --------------------------------
+CREATE TABLE missions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    mission_name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('ONGOING', 'COMPLETED', 'FAILED', 'MARTYRED') NOT NULL,
+    assigned_by_user_id BIGINT NOT NULL, -- Admin who assigned the mission
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (assigned_by_user_id) REFERENCES users(id)
+);
+
+------------------------- Mission_Participants --------------------------------
+CREATE TABLE mission_participants (
+    mission_id BIGINT NOT,
+    user_id BIGINT NOT NULL,
+    joined_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (mission_id, user_id), -- Composite primary key
+    FOREIGN KEY (mission_id) REFERENCES missions(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+------------------------- Feedback --------------------------------
+CREATE TABLE feedback (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL, -- Avenger who submitted feedback
+    feedback_text TEXT NOT NULL,
+    submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE, -- For admin to track read status
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+------------------------- Attendance_Sessions --------------------------------
+CREATE TABLE attendance_sessions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    admin_user_id BIGINT NOT NULL, -- Admin who started the session
+    attendance_code VARCHAR(6) NOT NULL UNIQUE, -- The 6-digit code
+    start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    end_time DATETIME NOT NULL, -- start_time + 1 minute
+    is_active BOOLEAN DEFAULT TRUE, -- Can be set to FALSE if manually stopped or expired
+    FOREIGN KEY (admin_user_id) REFERENCES users(id)
+);
+
+------------------------- Attendance_Records --------------------------------
+CREATE TABLE attendance_records (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    session_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL, -- Avenger who marked present
+    marked_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- You can add an 'is_present' field if you want to track more complex states later,
+    -- but for now, the existence of a record implies presence.
+    FOREIGN KEY (session_id) REFERENCES attendance_sessions(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE (session_id, user_id) -- An Avenger can only mark attendance once per session
+);
+
+------------------------- Announcements --------------------------------
+CREATE TABLE announcements (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    posted_by_user_id BIGINT NOT NULL, -- Admin who posted
+    posted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (posted_by_user_id) REFERENCES users(id)
+);

@@ -1,0 +1,34 @@
+Theme: Red + White + Black
+
+- index.html
+
+- Admin.html (Sam is admin)
+	- Payment to avenger feature
+	- Feedback via mail
+	- Payment History
+	- Assign missions, add members, select status (ongoing, completed, failed, martyred)
+	- Mission Complete -> Google form link to all avengers through mail -> Data send to Admin through mail
+	- Status (Avenger) -> died or alive
+	- Status (Mission) -> left , ongoing, completed
+	- Catalog Page of Avengers
+	- Attendance System
+		- 6 digit OTP (1 minute)
+		- Mark Present 
+
+
+- Avenger.html
+	- Payment to other Avengers
+	- Attendance
+	
+- Common Page
+
+- Stats Page 
+	- % Attendance of each Avenger
+	- Bar/Line Chart of Attendance
+
+Extra:
+- Admin can send money to multiple members at once.
+- Admin can send money at Advanced money mode ( e.g: Total mission money: 5000 rs- (1000 rs in advanced and rest 4000 after mission completion. The admin will transfer 5000 rs with setting advanced money to 1000 rs. Then reciever should get 1000 rs instant but 4000 rs after admin’s approval.
+- If admin post is marked "Important," send to all users via email
+
+Generated Secret Key: yMTpzxnzFjrJHAv655+f8XW9rJqOXg9SdATzzq8cl2I=
