@@ -1,92 +1,50 @@
-/*
- * // src/main/java/com/au/cl/service/UserDetailsServiceImpl.java
- * 
- * package com.au.cl.service;
- * 
- * import com.au.cl.model.User; import com.au.cl.repository.UserRepository;
- * import org.springframework.beans.factory.annotation.Autowired; import
- * org.springframework.security.core.userdetails.UserDetails; import
- * org.springframework.security.core.userdetails.UserDetailsService; import
- * org.springframework.security.core.userdetails.UsernameNotFoundException;
- * import org.springframework.security.core.authority.SimpleGrantedAuthority; //
- * Import this import org.springframework.stereotype.Service;
- * 
- * import java.util.Collections; import java.util.List; import
- * java.util.stream.Collectors;
- * 
- * @Service // Marks this as a Spring service component public class
- * UserDetailsServiceImpl implements UserDetailsService {
- * 
- * @Autowired private UserRepository userRepository;
- * 
- * @Override public UserDetails loadUserByUsername(String username) throws
- * UsernameNotFoundException { User user =
- * userRepository.findByUsername(username) .orElseThrow(() -> new
- * UsernameNotFoundException("User not found with username: " + username));
- * 
- * // Spring Security expects roles to be prefixed with "ROLE_"
- * List<SimpleGrantedAuthority> authorities = Collections.singletonList( new
- * SimpleGrantedAuthority("ROLE_" + user.getRole().name()) );
- * 
- * return new org.springframework.security.core.userdetails.User(
- * user.getUsername(), user.getPassword(), // This is the HASHED password from
- * the DB authorities // Pass the list of authorities ); } }
- */
-
-// src/main/java/com/au/cl/service/UserDetailsServiceImpl.java
 package com.au.cl.service;
 
 import com.au.cl.model.User;
 import com.au.cl.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Custom implementation of Spring Security's UserDetailsService.
- * Loads user-specific data during the authentication process.
+ * This service is responsible for loading user-specific data during authentication.
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    // Constructor injection
+    // Constructor injection for UserRepository
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     /**
-     * Locates the user based on the username. In the actual authentication process,
-     * this method is called by Spring Security to retrieve user details.
+     * Locates the user based on the username. In the actual implementation, the search
+     * may be case sensitive, or case insensitive depending on how the implementation
+     * instance is configured. In this case, it's case sensitive as per repository.
+     *
      * @param username The username identifying the user whose data is required.
-     * @return A UserDetails object (Spring Security's user representation).
-     * @throws UsernameNotFoundException if the user could not be found.
+     * @return A UserDetails object (which is our com.au.cl.model.User instance).
+     * @throws UsernameNotFoundException if the user could not be found or the user has no
+     * GrantedAuthority.
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Retrieve user from the database by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        // Find the user by username in the database
+        Optional<User> userOptional = userRepository.findByUsername(username);
 
-        // Convert the application's Role enum to Spring Security's GrantedAuthority
-        // Spring Security expects roles to be prefixed with "ROLE_" (e.g., "ROLE_ADMIN", "ROLE_AVENGER")
-        List<SimpleGrantedAuthority> authorities = Collections.singletonList(
-            new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
-        );
+        // If the user is not found, throw UsernameNotFoundException
+        if (userOptional.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
 
-        // Return a Spring Security User object
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(), // This is the HASHED password from the DB
-                authorities // Pass the list of authorities (roles)
-        );
+        // Return the found User entity. Since com.au.cl.model.User now implements UserDetails,
+        // it can be directly returned here.
+        return userOptional.get();
     }
 }
