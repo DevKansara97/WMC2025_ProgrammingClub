@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avengers Assemble - Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css"> <link rel="icon" href="/images/Avengers.jpg" type="image/jpg">
+</head>
+<body class="light-mode">
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline poster="/images/marvel_intro_poster.jpg">
+            <source src="/videos/marvel_intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <em>Dark Mode</em>
+        </div>
+
+        <div class="login-container">
+            <h2>Avengers Assemble!</h2>
+            <form id="loginForm" class="login-form"> 
+                <div class="input-group">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+                <p class="register-link">Don't have an account? <a href="/register.html">Register Here</a></p>
+                <div id="loginMessage" class="message"></div> 
+            </form>
+        </div>
+    </div> 
+    <script src="/js/script.js"></script>
+	<script src="/js/style.js"></script>
+</body>
+</html>

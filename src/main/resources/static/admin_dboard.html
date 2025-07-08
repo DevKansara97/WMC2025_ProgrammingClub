@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avengers Admin Dashboard</title>
+    <!-- Link to the universal theme stylesheet - CORRECTED PATH -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Link to the dashboard-specific stylesheet - CORRECTED PATH -->
+    <link rel="stylesheet" href="/css/admin_dboard.css">
+    <!-- Font Awesome for icons (used throughout the dashboard) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<!-- Body defaults to dark-mode based on the provided style.css setup -->
+<body class="dark-mode">
+    <!-- Video Background and Overlay as defined in style.css -->
+    <div class="video-background">
+        <!-- Placeholder video source. Replace with your actual video path. -->
+        <!-- Note: Original requirement was /videos/marvel_intro.mp4 -->
+        <video autoplay muted loop id="bgVideo">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-particles-moving-4654-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <!-- Theme Switch Toggle (reused from style.css concept) -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <!-- Checkbox is initially checked for dark mode -->
+            <input type="checkbox" id="checkbox" checked />
+            <div class="slider round"></div>
+        </label>
+        <em>Dark Mode</em>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <!-- This wrapper will contain the header and the sidebar+main content layout -->
+    <div class="content-wrapper">
+        <!-- Dashboard Header Section -->
+        <header class="dashboard-header">
+            <h1 class="dashboard-title">Avengers Command Center</h1>
+            <p class="welcome-message">Welcome, Captain Wilson!</p> <!-- This will be dynamically updated by JS -->
+        </header>
+
+        <!-- Container for Sidebar and Main Content to allow them to sit side-by-side -->
+        <div class="dashboard-layout-container">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar">
+                <ul>
+                    <!-- Navigation items with Font Awesome icons and data-section attributes for JS toggling -->
+                    <li class="nav-item active" data-section="overview"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</li>
+                    <li class="nav-item" data-section="payments"><i class="fas fa-dollar-sign"></i> Payments</li>
+                    <li class="nav-item" data-section="missions"><i class="fas fa-globe-americas"></i> Missions</li>
+                    <li class="nav-item" data-section="attendance"><i class="fas fa-user-check"></i> Attendance</li>
+                    <li class="nav-item" data-section="feedback"><i class="fas fa-comments"></i> Feedback</li>
+                    <li class="nav-item" data-section="posts"><i class="fas fa-bullhorn"></i> Announcements</li>
+                    <li class="nav-item" data-section="users"><i class="fas fa-users"></i> Manage Avengers</li>
+                    <li class="nav-item" data-section="stats"><i class="fas fa-chart-line"></i> Stats & Reports</li>
+                </ul>
+                <!-- Logout Button - ADDED ID FOR JS INTERACTION -->
+                <button id="logoutButton" class="button danger-button logout-sidebar-btn">Logout</button>
+            </nav>
+
+            <!-- Main Content Area where different sections will be displayed -->
+            <main class="dashboard-main-content">
+                <!-- Overview Section (Default active section) -->
+                <section id="overview" class="dashboard-section active">
+                    <h2 class="section-title">Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Avengers</h3>
+                            <p>15</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Missions</h3>
+                            <p>3</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Pending Feedback</h3>
+                            <p>2</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Payments Sent (This Month)</h3>
+                            <p>₹ 150,000</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payments Section -->
+                <section id="payments" class="dashboard-section hidden">
+                    <h2 class="section-title">Payments Management</h2>
+                    <div class="card">
+                        <h3>Send Salaries</h3>
+                        <form class="payment-form">
+                            <div class="form-group">
+                                <label for="salary-recipient">Recipient Avenger:</label>
+                                <select id="salary-recipient" class="input-field">
+                                    <option value="">Select Avenger</option>
+                                    <option value="bucky">Bucky Barnes</option>
+                                    <option value="shuri">Shuri</option>
+                                    <option value="okoye">Okoye</option>
+                                    <!-- Add more Avengers as needed -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="salary-amount">Amount (₹):</label>
+                                <input type="number" id="salary-amount" class="input-field" placeholder="e.g., 50000" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="salary-type">Payment Type:</label>
+                                <select id="salary-type" class="input-field">
+                                    <option value="full">Full Payment</option>
+                                    <option value="advanced">Advanced Payment</option>
+                                </select>
+                            </div>
+                            <!-- Advanced amount field, initially hidden -->
+                            <div class="form-group advanced-amount-group hidden">
+                                <label for="advanced-amount">Advanced Amount (₹):</label>
+                                <input type="number" id="advanced-amount" class="input-field" placeholder="e.g., 10000" min="0">
+                            </div>
+                            <button type="submit" class="button primary-button">Send Salary</button>
+                        </form>
+                    </div>
+
+                    <div class="card mt-4">
+                        <h3>Payment Records</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Recipient</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2025-07-01</td>
+                                    <td>Bucky Barnes</td>
+                                    <td>₹ 50,000</td>
+                                    <td>Full</td>
+                                    <td>Completed</td>
+                                </tr>
+                                <tr>
+                                    <td>2025-06-28</td>
+                                    <td>Shuri</td>
+                                    <td>₹ 10,000</td>
+                                    <td>Advanced</td>
+                                    <td>Pending Approval</td>
+                                </tr>
+                                <!-- Add more payment records here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Missions Section -->
+                <section id="missions" class="dashboard-section hidden">
+                    <h2 class="section-title">Mission Management</h2>
+                    <div class="card">
+                        <h3>Assign New Mission</h3>
+                        <form class="mission-form">
+                            <div class="form-group">
+                                <label for="mission-name">Mission Name:</label>
+                                <input type="text" id="mission-name" class="input-field" placeholder="e.g., Hydra Base Infiltration">
+                            </div>
+                            <div class="form-group">
+                                <label for="mission-members">Assign Members:</label>
+                                <select id="mission-members" class="input-field" multiple>
+                                    <option value="bucky">Bucky Barnes</option>
+                                    <option value="shuri">Shuri</option>
+                                    <option value="okoye">Okoye</option>
+                                    <!-- Add more Avengers -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mission-status">Status:</label>
+                                <select id="mission-status" class="input-field">
+                                    <option value="ongoing">Ongoing</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="failed">Failed</option>
+                                    <option value="martyred">Martyred</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="button primary-button">Assign Mission</button>
+                        </form>
+                    </div>
+
+                    <div class="card mt-4">
+                        <h3>Current Missions</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mission Name</th>
+                                    <th>Members</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Hydra Base Infiltration</td>
+                                    <td>Bucky, Shuri</td>
+                                    <td>Ongoing</td>
+                                    <td><button class="button small-button">Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Wakandan Border Patrol</td>
+                                    <td>Okoye</td>
+                                    <td>Completed</td>
+                                    <td><button class="button small-button">Edit</button></td>
+                                </tr>
+                                <!-- Add more missions -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Attendance Section -->
+                <section id="attendance" class="dashboard-section hidden">
+                    <h2 class="section-title">Attendance System</h2>
+                    <div class="card">
+                        <h3>Start Attendance Session</h3>
+                        <button id="start-attendance-btn" class="button primary-button">Generate Attendance Code</button>
+                        <div id="attendance-code-display" class="attendance-code-display hidden mt-3">
+                            <p>Code: <span id="attendance-code"></span> (Valid for <span id="countdown">60</span> seconds)</p>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <h3>Attendance Records</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Avenger</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2025-07-05</td>
+                                    <td>Bucky Barnes</td>
+                                    <td>Present</td>
+                                </tr>
+                                <tr>
+                                    <td>2025-07-05</td>
+                                    <td>Shuri</td>
+                                    <td>Present</td>
+                                </tr>
+                                <!-- Add more attendance records -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Feedback Section -->
+                <section id="feedback" class="dashboard-section hidden">
+                    <h2 class="section-title">Received Feedback</h2>
+                    <div class="card">
+                        <p>Feedback will be received via email as per requirements. This section could display a log of feedback emails sent/received or integrate with an email API to fetch recent feedback.</p>
+                        <div class="feedback-item">
+                            <h4>Subject: Mission Briefing Clarity</h4>
+                            <p>From: Bucky Barnes</p>
+                            <p>Date: 2025-07-04</p>
+                            <p>Message: "The mission briefing for 'Operation: Thunderstrike' was very clear and concise. Good job!"</p>
+                        </div>
+                        <div class="feedback-item">
+                            <h4>Subject: Payment System Suggestion</h4>
+                            <p>From: Shuri</p>
+                            <p>Date: 2025-07-03</p>
+                            <p>Message: "Could we add a feature to split payments for joint missions automatically?"</p>
+                        </div>
+                        <!-- Add more feedback items -->
+                    </div>
+                </section>
+
+                <!-- Announcements Section -->
+                <section id="posts" class="dashboard-section hidden">
+                    <h2 class="section-title">Announcements</h2>
+                    <div class="card">
+                        <h3>Create New Announcement</h3>
+                        <form class="announcement-form">
+                            <div class="form-group">
+                                <label for="announcement-title">Title:</label>
+                                <input type="text" id="announcement-title" class="input-field" placeholder="e.g., Important Update: New Training Protocol">
+                            </div>
+                            <div class="form-group">
+                                <label for="announcement-content">Content:</label>
+                                <textarea id="announcement-content" class="input-field" rows="5" placeholder="Write your announcement here..."></textarea>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="important-post">
+                                <label for="important-post">Mark as Important (Send via Email)</label>
+                            </div>
+                            <button type="submit" class="button primary-button">Post Announcement</button>
+                        </form>
+                    </div>
+                    <div class="card mt-4">
+                        <h3>Recent Announcements</h3>
+                        <div class="announcement-item">
+                            <h4>Important Update: New Training Protocol <span class="badge important">Important</span></h4>
+                            <p>Posted: 2025-07-05</p>
+                            <p>All Avengers are required to review the new training protocols by end of week.</p>
+                        </div>
+                        <div class="announcement-item">
+                            <h4>Weekly Briefing Scheduled</h4>
+                            <p>Posted: 2025-07-04</p>
+                            <p>Our weekly briefing will be held on Monday at 0900 hours.</p>
+                        </div>
+                        <!-- Add more announcements -->
+                    </div>
+                </section>
+
+                <!-- Manage Avengers Section -->
+                <section id="users" class="dashboard-section hidden">
+                    <h2 class="section-title">Manage Avengers</h2>
+                    <div class="card">
+                        <h3>Avengers Roster</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Bucky Barnes</td>
+                                    <td>Winter Soldier</td>
+                                    <td>Active</td>
+                                    <td><button class="button small-button">Edit</button> <button class="button small-button danger-button">Remove</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Shuri</td>
+                                    <td>Tech Genius</td>
+                                    <td>Active</td>
+                                    <td><button class="button small-button">Edit</button> <button class="button small-button danger-button">Remove</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Okoye</td>
+                                    <td>Dora Milaje General</td>
+                                    <td>Active</td>
+                                    <td><button class="button small-button">Edit</button> <button class="button small-button danger-button">Remove</button></td>
+                                </tr>
+                                <!-- Add more Avengers to the roster -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Stats & Reports Section -->
+                <section id="stats" class="dashboard-section hidden">
+                    <h2 class="section-title">Stats & Reports</h2>
+                    <div class="card">
+                        <h3>Attendance Percentage</h3>
+                        <!-- Canvas for Chart.js Bar Chart -->
+                        <canvas id="attendanceChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="card mt-4">
+                        <h3>Mission Completion Rate</h3>
+                        <!-- Canvas for Chart.js Line Chart -->
+                        <canvas id="missionChart" width="400" height="200"></canvas>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Chart.js library for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Link to the dashboard-specific JavaScript file - CORRECTED PATH -->
+    <script src="/js/admin_dboard.js"></script>
+</body>
+</html>

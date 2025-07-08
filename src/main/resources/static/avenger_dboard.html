@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captain's Ledger - Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/images/Avengers.jpg" type="image/jpg">
+</head>
+<body class="light-mode">
+    <div class="video-background">
+        <video autoplay loop muted playsinline poster="/images/marvel_intro_poster.jpg">
+            <source src="/videos/marvel_intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <em>Dark Mode</em>
+        </div>
+
+        <div class="dashboard-container">
+            <img src="/images/Avengers.jpg" alt="Avengers Logo" class="logo">
+            
+            <div class="dashboard-header">
+                <h2 id="welcomeMessage">Welcome, Agent!</h2> </div>
+
+            <div id="avengerContent" class="role-content">
+                <h3>Your Missions & Data</h3>
+                <nav>
+                    <ul>
+                        <li><a href="send-money.html" class="dashboard-link">Send Money to Teammates</a></li>
+                        <li><a href="my-transactions.html" class="dashboard-link">View My Transactions</a></li>
+                        <li><a href="submit-feedback.html" class="dashboard-link">Submit Feedback</a></li>
+                        <li><a href="my-missions.html" class="dashboard-link">View Assigned Missions</a></li>
+                        <li><button id="markAttendanceButton" class="btn dashboard-button">Mark Attendance</button></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div id="adminContent" class="role-content" style="display: none;"> <h3>Admin Control Panel</h3>
+                <nav>
+                    <ul>
+                        <li><a href="avengers-payments.html" class="dashboard-link">Manage Avengers & Payments</a></li>
+                        <li><a href="manage-missions.html" class="dashboard-link">Assign & Manage Missions</a></li>
+                        <li><a href="post-announcement.html" class="dashboard-link">Post Announcements</a></li>
+                        <li><a href="view-feedback.html" class="dashboard-link">View Received Feedback</a></li>
+                        <li><button id="startAttendanceButton" class="btn dashboard-button">Start Attendance</button></li>
+                        <li><a href="stats.html" class="dashboard-link">View Statistics</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <button id="logoutButton" class="btn logout-btn">Logout</button>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

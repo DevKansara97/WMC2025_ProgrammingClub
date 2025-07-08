@@ -1,0 +1,183 @@
+/*
+ * index.css
+ * Styles specific to the index.html (Login) page.
+ */
+
+/* Main content wrapper for centering */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+/* Login form container */
+.login-container {
+    background-color: var(--light-card-background);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid var(--light-border);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    z-index: 2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+body.dark-mode .login-container {
+    background-color: var(--dark-card-background);
+    border: 1px solid var(--dark-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading styles */
+h2 {
+    font-family: 'Avengers', sans-serif;
+    color: var(--avengers-red);
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+body.dark-mode h2 {
+    color: var(--avengers-dark-red);
+}
+
+/* Input group layout */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Input fields and select dropdowns */
+.input-group input[type="text"],
+.input-group input[type="password"],
+.input-group input[type="email"],
+.input-group select {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid var(--light-border);
+    border-radius: 5px;
+    background-color: var(--light-input-background);
+    color: var(--light-text);
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+body.dark-mode .input-group input,
+body.dark-mode .input-group select {
+    border: 1px solid var(--dark-border);
+    background-color: var(--dark-input-background);
+    color: var(--dark-text);
+}
+
+/* Input/select focus states */
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--avengers-red);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+body.dark-mode .input-group input:focus,
+body.dark-mode .input-group select:focus {
+    border-color: var(--avengers-dark-red);
+    box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.3);
+}
+
+/* Form submission button */
+button[type="submit"] {
+    background-color: var(--light-button-background);
+    color: var(--light-button-text);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+body.dark-mode button[type="submit"] {
+    background-color: var(--dark-button-background);
+    color: var(--dark-button-text);
+}
+
+button[type="submit"]:hover {
+    background-color: #a72737;
+}
+
+body.dark-mode button[type="submit"]:hover {
+    background-color: #8c0019;
+}
+
+/* General message styles for success/error */
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.message.success {
+    color: green;
+    background-color: #e6ffe6;
+    border: 1px solid green;
+}
+
+.message.error {
+    color: red;
+    background-color: #ffe6e6;
+    border: 1px solid red;
+}
+
+/* Register link styling */
+.login-container .register-link,
+.login-container .register-link a {
+    color: var(--avengers-red);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+body.dark-mode .login-container .register-link a {
+    color: var(--avengers-dark-red);
+}
+
+.login-container .register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    .login-container {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 30px 20px;
+    }
+}
+
+/* Dashboard styles are now moved to a dedicated dashboard.css */
+/* Removed dashboard-related styles from here */
