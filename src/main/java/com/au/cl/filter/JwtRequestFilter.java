@@ -1,17 +1,5 @@
 package com.au.cl.filter;
 
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource; // Import for logging
-import org.springframework.stereotype.Component; // Import for logging
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import com.au.cl.service.UserDetailsServiceImpl;
 import com.au.cl.util.JwtUtil;
 
@@ -21,10 +9,21 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger; // Import for logging
+import org.slf4j.LoggerFactory; // Import for logging
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+
 /**
- * JWT Request Filter to intercept incoming requests, extract JWT from cookies
- * (or Authorization header), validate it, and set the authentication in Spring
- * Security's SecurityContext.
+ * JWT Request Filter to intercept incoming requests, extract JWT from cookies (or Authorization header),
+ * validate it, and set the authentication in Spring Security's SecurityContext.
  */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -41,9 +40,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     /**
-     * This method is executed for every incoming HTTP request. It checks for an
-     * Access Token in cookies first, then in the Authorization header. If found
-     * and valid, it sets up the security context.
+     * This method is executed for every incoming HTTP request.
+     * It checks for an Access Token in cookies first, then in the Authorization header.
+     * If found and valid, it sets up the security context.
      *
      * @param request The current HTTP request.
      * @param response The current HTTP response.
@@ -105,6 +104,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // No need to set authentication if user not found.
             }
 
+
             if (userDetails != null && jwtUtil.validateToken(accessToken, userDetails)) {
                 // If the token is valid, create an authentication token
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
@@ -123,12 +123,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 logger.debug("UserDetails could not be loaded for user '{}' or token validation failed for URI: {}.", username, request.getRequestURI());
             }
         } else if (username == null && accessToken != null) {
-            logger.debug("Access token found for URI: {} but username could not be extracted (likely invalid token format).", request.getRequestURI());
+             logger.debug("Access token found for URI: {} but username could not be extracted (likely invalid token format).", request.getRequestURI());
         } else if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            logger.debug("Authentication already exists in SecurityContext for URI: {}", request.getRequestURI());
+             logger.debug("Authentication already exists in SecurityContext for URI: {}", request.getRequestURI());
         } else {
-            logger.debug("No access token found or username extracted for URI: {}", request.getRequestURI());
+             logger.debug("No access token found or username extracted for URI: {}", request.getRequestURI());
         }
+
 
         // 5. Continue the filter chain
         chain.doFilter(request, response);
