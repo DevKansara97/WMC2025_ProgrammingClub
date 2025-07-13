@@ -1,74 +1,125 @@
 File Structure:
 
-CaptainsLedgerBackend:
+CaptainsLedgerBackend (Spring Starter Project):
 
 src/main/java/
-	- com/au/cl
-		- Application
-		- config
-			- SecurityConfig.java
-			- WebConfig.java
-		- controller
-			- AuthController.java
-			- UserController.java
-		- dto
-			- UserCreateRequest.java
-		- model
-			- AuthRequest.java
-			- AuthResponse.java
-			- Role.java (Enum)
-			- User.java
-		- repository
-			- UserRepository.java (Interface)
-		- service
-			- UserDetailsServiceImpl.java
-		- util
-			- JwtUtil.java
+├── com/au/cl/
+│   └── Application.java
+│
+├── com/au/cl/config/
+│   ├── JwtConfig.java
+│   ├── SecurityConfig.java
+│   └── WebConfig.java
+│
+├── com/au/cl/controller/
+│   ├── AuthController.java
+│   └── UserController.java
+│
+├── com/au/cl/dto/
+│   ├── AnnouncementCreateRequest.java
+│   ├── AnnouncementDTO.java             <-- NEW
+│   ├── AttendanceRecordDTO.java         <-- NEW
+│   ├── AttendanceSessionResponse.java   <-- NEW
+│   ├── DashboardStatsDTO.java           <-- NEW
+│   ├── FeedbackDTO.java                 <-- NEW
+│   ├── MissionCreateRequest.java        <-- NEW
+│   ├── MissionDTO.java                  <-- NEW
+│   ├── PaymentRequest.java              <-- NEW
+│   ├── TransactionDTO.java              <-- NEW
+│   ├── UserCreateRequest.java
+│   └── UserDTO.java                     <-- NEW
+│
+├── com/au/cl/filter/
+│   └── JwtRequestFilter.java
+│
+├── com/au/cl/model/
+│   ├── Announcement.java                <-- NEW
+│   ├── AttendanceRecord.java            <-- NEW
+│   ├── AttendanceSession.java           <-- NEW
+│   ├── AuthRequest.java
+│   ├── AuthResponse.java
+│   ├── Feedback.java                    <-- NEW
+│   ├── Mission.java                     <-- NEW
+│   ├── MissionParticipant.java          <-- NEW
+│   ├── Role.java (Enum)
+│   ├── Transaction.java                 <-- NEW
+│   └── User.java
+│
+├── com/au/cl/payload/request/
+│   ├── LoginRequest.java
+│   └── UserRegistrationRequest.java
+│
+├── com/au/cl/payload/response/
+│   └── ApiResponse.java
+│
+├── com/au/cl/repository/
+│   ├── AnnouncementRepository.java      <-- NEW
+│   ├── AttendanceRecordRepository.java  <-- NEW
+│   ├── AttendanceSessionRepository.java <-- NEW
+│   ├── FeedbackRepository.java          <-- NEW
+│   ├── MissionParticipantRepository.java<-- NEW
+│   ├── MissionRepository.java           <-- NEW
+│   ├── TransactionRepository.java       <-- NEW
+│   └── UserRepository.java
+│
+├── com/au/cl/service/
+│   ├── AnnouncementService.java         <-- NEW
+│   ├── AttendanceService.java           <-- NEW
+│   ├── FeedbackService.java             <-- NEW
+│   ├── MissionService.java              <-- NEW
+│   ├── TransactionService.java          <-- NEW
+│   └── UserDetailsServiceImpl.java
+│
+└── com/au/cl/util/
+    └── JwtUtil.java
+
+
 src/main/resources/
-
-- application.properties
-- template
-- static
-	- css
-		- index.css (done)
-		- register.css (done)
-		- style.css (done)
-		- dashboard.css
-
-	- js
-		- style.js (done)
-		- script.js (done)
-		- register.js (done)
-		- dashboard.js
-		- send-money.js
-		- my-transactions.js
-		- submit-feedback.js
-		- my-missions.js
-		- avengers-payment.js
-		- manage-missions.js
-		- post-announcements.js
-		- view-feedback.js
-		- stats.js
-		- attendance.js
-
-	- html
-		- index.html (done)
-		- dashboard.html (done)
-		- register.html (done)
-		- send-money.html
-		- my-transactions.html
-		- submit-feedback.html
-		- my-missions.html
-		- avengers-payment.html
-		- manage-missions.html
-		- post-announcements.html
-		- view-feedback.html
-		- stats.html
-		- attendance.html
-	
-	- videos
-		- marvel_intro.mp4
-
-	- images
-		- avengers.ico
-		- marvel_intro_poster.jpg
+├── application.properties
+├── template/
+│   └── (Template files, if any, e.g., Thymeleaf, Freemarker)
+│
+└── static/
+    ├── css/
+    │   ├── admin_dashboard.css          <-- Updated/Themed
+    │   ├── index.css
+    │   ├── register.css
+    │   └── style.css                    <-- Updated/Themed (Global)
+    │
+    ├── js/
+    │   ├── admin_dashboard.js           <-- Updated (Connects to backend)
+    │   ├── attendance.js                <-- NEW (If separating attendance logic)
+    │   ├── avenger_dashboard.js
+    │   ├── avengers-payment.js          <-- NEW (If separating payment logic for Avengers)
+    │   ├── my-missions.js               <-- NEW (If separating Avenger mission view)
+    │   ├── my-transactions.js           <-- NEW (If separating Avenger transaction view)
+    │   ├── post-announcements.js        <-- NEW (If separating announcement posting)
+    │   ├── register.js
+    │   ├── script.js
+    │   ├── send-money.js                <-- NEW (If separating general money sending)
+    │   ├── stats.js                     <-- NEW (If separating stats view)
+    │   ├── style.js
+    │   └── submit-feedback.js           <-- NEW (If separating feedback submission)
+    │   └── view-feedback.js             <-- NEW (If separating feedback viewing)
+    │
+    ├── videos/
+    │   └── marvel_intro.mp4
+    │
+    ├── images/
+    │   ├── avengers.ico
+    │   └── marvel_intro_poster.jpg
+    │
+    ├── admin_dashboard.html             <-- Updated/Themed
+    ├── attendance.html                  <-- NEW (If separating attendance page)
+    ├── avenger_dashboard.html
+    ├── avengers-payment.html            <-- NEW (If separating payment page for Avengers)
+    ├── index.html
+    ├── manage-missions.html             <-- NEW (If separating mission management)
+    ├── my-missions.html                 <-- NEW (If separating Avenger mission page)
+    ├── my-transactions.html             <-- NEW (If separating Avenger transaction history)
+    ├── post-announcements.html          <-- NEW (If separating announcement posting page)
+    ├── register.html
+    ├── send-money.html                  <-- NEW (If separating general money sending page)
+    ├── stats.html                       <-- NEW (If separating stats page)
+    ├── submit-feedback.html             <-- NEW (If separating feedback submission page)
+    └── view-feedback.html               <-- NEW (If separating feedback viewing page)
