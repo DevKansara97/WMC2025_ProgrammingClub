@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avengers Admin Dashboard</title>
-    <!-- Link to the universal theme stylesheet - CORRECTED PATH -->
+    <!-- Link to the universal theme stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Link to the dashboard-specific stylesheet - CORRECTED PATH -->
-    <link rel="stylesheet" href="/css/admin_dboard.css">
+    <!-- Link to the dashboard-specific stylesheet -->
+    <link rel="stylesheet" href="/css/admin_dashboard.css">
     <!-- Font Awesome for icons (used throughout the dashboard) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter (for a clean, modern look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <!-- Body defaults to dark-mode based on the provided style.css setup -->
 <body class="dark-mode">
-    <!-- Video Background and Overlay as defined in style.css -->
+    <!-- Video Background and Overlay -->
     <div class="video-background">
-        <!-- Placeholder video source. Replace with your actual video path. -->
-        <!-- Note: Original requirement was /videos/marvel_intro.mp4 -->
-        <video autoplay muted loop id="bgVideo">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-particles-moving-4654-large.mp4" type="video/mp4">
+        <!-- Added playsinline for better mobile compatibility -->
+        <video autoplay muted loop id="bgVideo" playsinline poster="/images/marvel_intro_poster.jpg">
+            <source src="/videos/marvel_intro.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="video-overlay"></div>
 
-    <!-- Theme Switch Toggle (reused from style.css concept) -->
+    <!-- Theme Switch Toggle -->
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
-            <!-- Checkbox is initially checked for dark mode -->
             <input type="checkbox" id="checkbox" checked />
             <div class="slider round"></div>
         </label>
@@ -35,12 +35,11 @@
     </div>
 
     <!-- Main Content Wrapper -->
-    <!-- This wrapper will contain the header and the sidebar+main content layout -->
     <div class="content-wrapper">
         <!-- Dashboard Header Section -->
         <header class="dashboard-header">
             <h1 class="dashboard-title">Avengers Command Center</h1>
-            <p class="welcome-message">Welcome, Captain Wilson!</p> <!-- This will be dynamically updated by JS -->
+            <p class="welcome-message">Welcome, <span id="welcomeUsername">Captain!</span></p>
         </header>
 
         <!-- Container for Sidebar and Main Content to allow them to sit side-by-side -->
@@ -48,7 +47,6 @@
             <!-- Sidebar Navigation -->
             <nav class="sidebar">
                 <ul>
-                    <!-- Navigation items with Font Awesome icons and data-section attributes for JS toggling -->
                     <li class="nav-item active" data-section="overview"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</li>
                     <li class="nav-item" data-section="payments"><i class="fas fa-dollar-sign"></i> Payments</li>
                     <li class="nav-item" data-section="missions"><i class="fas fa-globe-americas"></i> Missions</li>
@@ -58,7 +56,7 @@
                     <li class="nav-item" data-section="users"><i class="fas fa-users"></i> Manage Avengers</li>
                     <li class="nav-item" data-section="stats"><i class="fas fa-chart-line"></i> Stats & Reports</li>
                 </ul>
-                <!-- Logout Button - ADDED ID FOR JS INTERACTION -->
+                <!-- Logout Button -->
                 <button id="logoutButton" class="button danger-button logout-sidebar-btn">Logout</button>
             </nav>
 
@@ -70,19 +68,19 @@
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h3>Total Avengers</h3>
-                            <p>15</p>
+                            <p id="totalAvengers">--</p>
                         </div>
                         <div class="stat-card">
                             <h3>Active Missions</h3>
-                            <p>3</p>
+                            <p id="activeMissions">--</p>
                         </div>
                         <div class="stat-card">
                             <h3>Pending Feedback</h3>
-                            <p>2</p>
+                            <p id="pendingFeedback">--</p>
                         </div>
                         <div class="stat-card">
                             <h3>Total Payments Sent (This Month)</h3>
-                            <p>₹ 150,000</p>
+                            <p id="totalPayments">₹ --</p>
                         </div>
                     </div>
                 </section>
@@ -92,35 +90,31 @@
                     <h2 class="section-title">Payments Management</h2>
                     <div class="card">
                         <h3>Send Salaries</h3>
-                        <form class="payment-form">
+                        <form id="sendSalaryForm" class="payment-form">
                             <div class="form-group">
                                 <label for="salary-recipient">Recipient Avenger:</label>
-                                <select id="salary-recipient" class="input-field">
+                                <select id="salary-recipient" class="input-field" required>
                                     <option value="">Select Avenger</option>
-                                    <option value="bucky">Bucky Barnes</option>
-                                    <option value="shuri">Shuri</option>
-                                    <option value="okoye">Okoye</option>
-                                    <!-- Add more Avengers as needed -->
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="salary-amount">Amount (₹):</label>
-                                <input type="number" id="salary-amount" class="input-field" placeholder="e.g., 50000" min="1">
+                                <input type="number" id="salary-amount" class="input-field" placeholder="e.g., 50000" min="1" required>
                             </div>
                             <div class="form-group">
                                 <label for="salary-type">Payment Type:</label>
-                                <select id="salary-type" class="input-field">
-                                    <option value="full">Full Payment</option>
-                                    <option value="advanced">Advanced Payment</option>
+                                <select id="salary-type" class="input-field" required>
+                                    <option value="SEND_MONEY">Send Money</option>
+                                    <option value="SALARY">Salary</option>
                                 </select>
                             </div>
-                            <!-- Advanced amount field, initially hidden -->
                             <div class="form-group advanced-amount-group hidden">
                                 <label for="advanced-amount">Advanced Amount (₹):</label>
                                 <input type="number" id="advanced-amount" class="input-field" placeholder="e.g., 10000" min="0">
                             </div>
-                            <button type="submit" class="button primary-button">Send Salary</button>
+                            <button type="submit" class="button primary-button">Send Payment</button>
                         </form>
+                        <div id="paymentMessage" class="message mt-2"></div>
                     </div>
 
                     <div class="card mt-4">
@@ -129,28 +123,14 @@
                             <thead>
                                 <tr>
                                     <th>Date</th>
+                                    <th>Sender</th>
                                     <th>Recipient</th>
                                     <th>Amount</th>
                                     <th>Type</th>
-                                    <th>Status</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2025-07-01</td>
-                                    <td>Bucky Barnes</td>
-                                    <td>₹ 50,000</td>
-                                    <td>Full</td>
-                                    <td>Completed</td>
-                                </tr>
-                                <tr>
-                                    <td>2025-06-28</td>
-                                    <td>Shuri</td>
-                                    <td>₹ 10,000</td>
-                                    <td>Advanced</td>
-                                    <td>Pending Approval</td>
-                                </tr>
-                                <!-- Add more payment records here -->
+                            <tbody id="paymentRecordsTableBody">
                             </tbody>
                         </table>
                     </div>
@@ -161,31 +141,32 @@
                     <h2 class="section-title">Mission Management</h2>
                     <div class="card">
                         <h3>Assign New Mission</h3>
-                        <form class="mission-form">
+                        <form id="assignMissionForm" class="mission-form">
                             <div class="form-group">
                                 <label for="mission-name">Mission Name:</label>
-                                <input type="text" id="mission-name" class="input-field" placeholder="e.g., Hydra Base Infiltration">
+                                <input type="text" id="mission-name" class="input-field" placeholder="e.g., Hydra Base Infiltration" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mission-description">Description:</label>
+                                <textarea id="mission-description" class="input-field" rows="3" placeholder="Detailed mission brief..." required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="mission-members">Assign Members:</label>
-                                <select id="mission-members" class="input-field" multiple>
-                                    <option value="bucky">Bucky Barnes</option>
-                                    <option value="shuri">Shuri</option>
-                                    <option value="okoye">Okoye</option>
-                                    <!-- Add more Avengers -->
+                                <select id="mission-members" class="input-field" multiple required>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="mission-status">Status:</label>
-                                <select id="mission-status" class="input-field">
-                                    <option value="ongoing">Ongoing</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="failed">Failed</option>
-                                    <option value="martyred">Martyred</option>
+                                <select id="mission-status" class="input-field" required>
+                                    <option value="ONGOING">Ongoing</option>
+                                    <option value="COMPLETED">Completed</option>
+                                    <option value="FAILED">Failed</option>
+                                    <option value="MARTYRED">Martyred</option>
                                 </select>
                             </div>
                             <button type="submit" class="button primary-button">Assign Mission</button>
                         </form>
+                        <div id="missionMessage" class="message mt-2"></div>
                     </div>
 
                     <div class="card mt-4">
@@ -194,25 +175,15 @@
                             <thead>
                                 <tr>
                                     <th>Mission Name</th>
+                                    <th>Description</th>
                                     <th>Members</th>
                                     <th>Status</th>
+                                    <th>Assigned By</th>
+                                    <th>Created At</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Hydra Base Infiltration</td>
-                                    <td>Bucky, Shuri</td>
-                                    <td>Ongoing</td>
-                                    <td><button class="button small-button">Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Wakandan Border Patrol</td>
-                                    <td>Okoye</td>
-                                    <td>Completed</td>
-                                    <td><button class="button small-button">Edit</button></td>
-                                </tr>
-                                <!-- Add more missions -->
+                            <tbody id="missionsTableBody">
                             </tbody>
                         </table>
                     </div>
@@ -227,29 +198,19 @@
                         <div id="attendance-code-display" class="attendance-code-display hidden mt-3">
                             <p>Code: <span id="attendance-code"></span> (Valid for <span id="countdown">60</span> seconds)</p>
                         </div>
+                        <div id="attendanceSessionMessage" class="message mt-2"></div>
                     </div>
                     <div class="card mt-4">
                         <h3>Attendance Records</h3>
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
+                                    <th>Session Code</th>
                                     <th>Avenger</th>
-                                    <th>Status</th>
+                                    <th>Marked At</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2025-07-05</td>
-                                    <td>Bucky Barnes</td>
-                                    <td>Present</td>
-                                </tr>
-                                <tr>
-                                    <td>2025-07-05</td>
-                                    <td>Shuri</td>
-                                    <td>Present</td>
-                                </tr>
-                                <!-- Add more attendance records -->
+                            <tbody id="attendanceRecordsTableBody">
                             </tbody>
                         </table>
                     </div>
@@ -259,20 +220,10 @@
                 <section id="feedback" class="dashboard-section hidden">
                     <h2 class="section-title">Received Feedback</h2>
                     <div class="card">
-                        <p>Feedback will be received via email as per requirements. This section could display a log of feedback emails sent/received or integrate with an email API to fetch recent feedback.</p>
-                        <div class="feedback-item">
-                            <h4>Subject: Mission Briefing Clarity</h4>
-                            <p>From: Bucky Barnes</p>
-                            <p>Date: 2025-07-04</p>
-                            <p>Message: "The mission briefing for 'Operation: Thunderstrike' was very clear and concise. Good job!"</p>
+                        <p>Feedback received from Avengers:</p>
+                        <div id="feedbackList">
+                            <p class="no-data-message">No feedback received yet.</p>
                         </div>
-                        <div class="feedback-item">
-                            <h4>Subject: Payment System Suggestion</h4>
-                            <p>From: Shuri</p>
-                            <p>Date: 2025-07-03</p>
-                            <p>Message: "Could we add a feature to split payments for joint missions automatically?"</p>
-                        </div>
-                        <!-- Add more feedback items -->
                     </div>
                 </section>
 
@@ -281,35 +232,24 @@
                     <h2 class="section-title">Announcements</h2>
                     <div class="card">
                         <h3>Create New Announcement</h3>
-                        <form class="announcement-form">
+                        <form id="createAnnouncementForm" class="announcement-form">
                             <div class="form-group">
                                 <label for="announcement-title">Title:</label>
-                                <input type="text" id="announcement-title" class="input-field" placeholder="e.g., Important Update: New Training Protocol">
+                                <input type="text" id="announcement-title" class="input-field" placeholder="e.g., Important Update: New Training Protocol" required>
                             </div>
                             <div class="form-group">
                                 <label for="announcement-content">Content:</label>
-                                <textarea id="announcement-content" class="input-field" rows="5" placeholder="Write your announcement here..."></textarea>
-                            </div>
-                            <div class="form-group checkbox-group">
-                                <input type="checkbox" id="important-post">
-                                <label for="important-post">Mark as Important (Send via Email)</label>
+                                <textarea id="announcement-content" class="input-field" rows="5" placeholder="Write your announcement here..." required></textarea>
                             </div>
                             <button type="submit" class="button primary-button">Post Announcement</button>
                         </form>
+                        <div id="announcementMessage" class="message mt-2"></div>
                     </div>
                     <div class="card mt-4">
                         <h3>Recent Announcements</h3>
-                        <div class="announcement-item">
-                            <h4>Important Update: New Training Protocol <span class="badge important">Important</span></h4>
-                            <p>Posted: 2025-07-05</p>
-                            <p>All Avengers are required to review the new training protocols by end of week.</p>
+                        <div id="announcementsList">
+                            <p class="no-data-message">No announcements posted yet.</p>
                         </div>
-                        <div class="announcement-item">
-                            <h4>Weekly Briefing Scheduled</h4>
-                            <p>Posted: 2025-07-04</p>
-                            <p>Our weekly briefing will be held on Monday at 0900 hours.</p>
-                        </div>
-                        <!-- Add more announcements -->
                     </div>
                 </section>
 
@@ -321,32 +261,14 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Role</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Balance</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Bucky Barnes</td>
-                                    <td>Winter Soldier</td>
-                                    <td>Active</td>
-                                    <td><button class="button small-button">Edit</button> <button class="button small-button danger-button">Remove</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Shuri</td>
-                                    <td>Tech Genius</td>
-                                    <td>Active</td>
-                                    <td><button class="button small-button">Edit</button> <button class="button small-button danger-button">Remove</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Okoye</td>
-                                    <td>Dora Milaje General</td>
-                                    <td>Active</td>
-                                    <td><button class="button small-button">Edit</button> <button class="button small-button danger-button">Remove</button></td>
-                                </tr>
-                                <!-- Add more Avengers to the roster -->
+                            <tbody id="avengersRosterTableBody">
                             </tbody>
                         </table>
                     </div>
@@ -357,12 +279,10 @@
                     <h2 class="section-title">Stats & Reports</h2>
                     <div class="card">
                         <h3>Attendance Percentage</h3>
-                        <!-- Canvas for Chart.js Bar Chart -->
                         <canvas id="attendanceChart" width="400" height="200"></canvas>
                     </div>
                     <div class="card mt-4">
                         <h3>Mission Completion Rate</h3>
-                        <!-- Canvas for Chart.js Line Chart -->
                         <canvas id="missionChart" width="400" height="200"></canvas>
                     </div>
                 </section>
@@ -372,7 +292,9 @@
 
     <!-- Chart.js library for graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Link to the dashboard-specific JavaScript file - CORRECTED PATH -->
-    <script src="/js/admin_dboard.js"></script>
+    <!-- Link to the universal style.js for dark mode toggle -->
+    <script src="/js/style.js"></script>
+    <!-- Link to the dashboard-specific JavaScript file -->
+    <script src="/js/admin_dashboard.js"></script>
 </body>
 </html>
