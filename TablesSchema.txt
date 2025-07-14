@@ -53,6 +53,18 @@ CREATE TABLE feedback (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+ALTER TABLE feedback
+ADD COLUMN category VARCHAR(255) NOT NULL DEFAULT 'GENERAL_FEEDBACK';
+
+ALTER TABLE feedback
+ADD COLUMN subject VARCHAR(255) NOT NULL DEFAULT 'No Subject';
+
+ALTER TABLE feedback
+ADD COLUMN is_anonymous BOOLEAN NOT NULL DEFAULT FALSE;
+
+ALTER TABLE feedback
+ADD COLUMN rating INT NULL;
+
 ------------------------- Attendance_Sessions --------------------------------
 CREATE TABLE attendance_sessions (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
