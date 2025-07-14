@@ -53,7 +53,6 @@ public class MissionService {
         List<User> participants = userRepository.findAllById(request.getParticipantUserIds());
         if (participants.size() != request.getParticipantUserIds().size()) {
             logger.warn("Some participants not found for mission creation: {}", request.getParticipantUserIds());
-            // You might want to throw an exception or handle this more gracefully
             throw new IllegalArgumentException("One or more participant users not found.");
         }
 
@@ -79,12 +78,41 @@ public class MissionService {
     }
 
     /**
+     * Retrieves missions assigned to a specific Avenger.
+     * @param avengerUser The Avenger user.
+     * @return List of MissionDTOs for the given Avenger.
+     */
+    public List<MissionDTO> getMissionsForAvenger(User avengerUser) {
+        return missionRepository.findMissionsByParticipantId(avengerUser.getId()).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Counts missions by a specific status.
      * @param status The mission status to count.
      * @return The count of missions with that status.
      */
     public long countMissionsByStatus(MissionStatus status) {
         return missionRepository.countByStatus(status);
+    }
+
+    /**
+     * Counts active missions for a specific Avenger.
+     * @param avengerUser The Avenger user.
+     * @return The count of active missions for the Avenger.
+     */
+    public long countActiveMissionsForAvenger(User avengerUser) {
+        return missionRepository.countActiveMissionsByParticipantId(avengerUser.getId());
+    }
+
+    /**
+     * Counts completed missions for a specific Avenger.
+     * @param avengerUser The Avenger user.
+     * @return The count of completed missions for the Avenger.
+     */
+    public long countCompletedMissionsForAvenger(User avengerUser) {
+        return missionRepository.countCompletedMissionsByParticipantId(avengerUser.getId());
     }
 
     /**
