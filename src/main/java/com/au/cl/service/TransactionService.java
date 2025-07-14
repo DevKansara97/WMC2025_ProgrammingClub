@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,7 +69,7 @@ public class TransactionService {
     }
 
     /**
-     * Retrieves all transactions, ordered by date descending.
+     * Retrieves all transactions, ordered by date descending (for admin).
      * @return List of TransactionDTOs.
      */
     public List<TransactionDTO> getAllTransactions() {
@@ -86,6 +87,44 @@ public class TransactionService {
      */
     public double getTotalPaymentsBetween(TransactionType type, LocalDateTime startDate, LocalDateTime endDate) {
         return transactionRepository.findByTransactionTypeAndTransactionDateBetween(type, startDate, endDate)
+                .stream()
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+    }
+
+    /**
+     * Retrieves transaction history for a specific Avenger (where they are sender or receiver).
+     * @param avengerUser The Avenger user.
+     * @return List of TransactionDTOs for the given Avenger.
+     */
+    public List<TransactionDTO> getTransactionsForAvenger(User avengerUser) {
+        // Find transactions where the user is either the sender or the receiver
+        return transactionRepository.findBySenderOrReceiverOrderByTransactionDateDesc(avengerUser, avengerUser).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Retrieves the last transaction for a specific Avenger.
+     * @param avengerUser The Avenger user.
+     * @return Optional of TransactionDTO for the last transaction.
+     */
+    public Optional<TransactionDTO> getLastTransactionForAvenger(User avengerUser) {
+        // findTop1 will return a list, so get the first element if present
+        List<Transaction> lastTransactions = transactionRepository.findTop1BySenderOrReceiverOrderByTransactionDateDesc(avengerUser, avengerUser);
+        return lastTransactions.stream().findFirst().map(this::convertToDto);
+    }
+
+    /**
+     * Calculates total earnings for an Avenger within a given month.
+     * Earnings are defined as transactions where the Avenger is the receiver.
+     * @param avengerUser The Avenger user.
+     * @param startOfMonth Start of the month.
+     * @param endOfMonth End of the month.
+     * @return Total amount received.
+     */
+    public double getMonthlyEarningsForAvenger(User avengerUser, LocalDateTime startOfMonth, LocalDateTime endOfMonth) {
+        return transactionRepository.findByReceiverAndTransactionDateBetween(avengerUser, startOfMonth, endOfMonth)
                 .stream()
                 .mapToDouble(Transaction::getAmount)
                 .sum();
