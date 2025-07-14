@@ -2,6 +2,7 @@ package com.au.cl.service;
 
 import com.au.cl.dto.AttendanceRecordDTO;
 import com.au.cl.dto.AttendanceSessionResponse;
+import com.au.cl.dto.AttendanceStatsDTO;
 import com.au.cl.model.AttendanceRecord;
 import com.au.cl.model.AttendanceSession;
 import com.au.cl.model.User;
@@ -14,10 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class AttendanceService {
@@ -104,7 +110,7 @@ public class AttendanceService {
     }
 
     /**
-     * Retrieves all attendance records.
+     * Retrieves all attendance records (for admin).
      * @return List of AttendanceRecordDTOs.
      */
     public List<AttendanceRecordDTO> getAllAttendanceRecords() {
@@ -114,13 +120,53 @@ public class AttendanceService {
     }
 
     /**
+     * Retrieves attendance history for a specific Avenger.
+     * @param avengerUser The Avenger user.
+     * @return List of AttendanceRecordDTOs for the given Avenger.
+     */
+    public List<AttendanceRecordDTO> getAttendanceHistoryForAvenger(User avengerUser) {
+        return recordRepository.findByUserOrderByMarkedAtDesc(avengerUser).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Calculates attendance statistics for a specific Avenger for a given month.
+     * @param avengerUser The Avenger user.
+     * @param yearMonth The YearMonth for which to calculate stats.
+     * @return A map containing "daysPresent", "daysAbsent", "attendanceRate".
+     */
+    public AttendanceStatsDTO getAttendanceStatsForAvenger(User avengerUser, YearMonth yearMonth) {
+        LocalDate startOfMonth = yearMonth.atDay(1);
+        LocalDate endOfMonth = yearMonth.atEndOfMonth();
+
+        // Count actual workdays in the month (excluding weekends)
+        long totalWorkDaysInMonth = IntStream.rangeClosed(1, endOfMonth.getDayOfMonth())
+                .mapToObj(day -> LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), day))
+                .filter(date -> date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY)
+                .count();
+
+        // Count days present from records for the given month
+        long daysPresent = recordRepository.countByUserAndMarkedAtBetween(avengerUser, startOfMonth, endOfMonth);
+
+        long daysAbsent = totalWorkDaysInMonth - daysPresent;
+        if (daysAbsent < 0) daysAbsent = 0; // Should not happen if logic is correct
+
+        double attendanceRate = 0.0;
+        if (totalWorkDaysInMonth > 0) {
+            attendanceRate = (double) daysPresent / totalWorkDaysInMonth * 100;
+        }
+
+        return new AttendanceStatsDTO(daysPresent, daysAbsent, attendanceRate);
+    }
+
+    /**
      * Converts an AttendanceRecord entity to an AttendanceRecordDTO.
      * @param record The AttendanceRecord entity.
      * @return The corresponding AttendanceRecordDTO.
      */
     private AttendanceRecordDTO convertToDto(AttendanceRecord record) {
         AttendanceRecordDTO dto = new AttendanceRecordDTO();
-        // Removed: dto.setId(record.getId()); as AttendanceRecord uses a composite key
         dto.setSessionId(record.getSession().getId());
         dto.setSessionCode(record.getSession().getAttendanceCode());
         dto.setAvengerUsername(record.getUser().getUsername());
