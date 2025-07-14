@@ -1,18 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avengers Portal - Avenger Dashboard</title>
+    <!-- Google Font: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Avenger Dashboard specific CSS -->
     <link rel="stylesheet" href="/css/avenger_dashboard.css">
+    <!-- Universal style.css for shared elements like theme toggle, buttons, etc. -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="dark-mode">
     <!-- Video Background and Overlay -->
     <div class="video-background">
-        <video autoplay muted loop id="bgVideo">
+        <!-- Added playsinline for better mobile compatibility -->
+        <video autoplay muted loop id="bgVideo" playsinline poster="/images/marvel_intro_poster.jpg">
+            <!-- Using a local placeholder image for the poster if the video fails to load -->
             <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-network-of-glowing-nodes-3206-large.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -23,7 +29,7 @@
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" checked />
-            <div class="slider"></div>
+            <div class="slider round"></div> <!-- Added 'round' class for consistency -->
         </label>
         <em>Dark Mode</em>
     </div>
@@ -33,7 +39,8 @@
         <!-- Dashboard Header Section -->
         <header class="dashboard-header">
             <h1 class="dashboard-title">Avengers Portal</h1>
-            <p class="welcome-message">Welcome, Agent Parker!</p>
+            <!-- Placeholder for dynamic username -->
+            <p class="welcome-message">Welcome, <span id="welcomeUsername">Agent!</span></p>
         </header>
 
         <!-- Container for Sidebar and Main Content -->
@@ -49,7 +56,7 @@
                     <li class="nav-item" data-section="announcements"><i class="fas fa-bullhorn"></i> Announcements</li>
                     <li class="nav-item" data-section="profile"><i class="fas fa-user-cog"></i> Profile</li>
                 </ul>
-                <button id="logoutButton" class="button logout-sidebar-btn">
+                <button id="logoutButton" class="button danger-button logout-sidebar-btn"> <!-- Added danger-button class -->
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </nav>
@@ -65,22 +72,22 @@
                         <div class="stat-card">
                             <div class="stat-icon"><i class="fas fa-rocket"></i></div>
                             <h3>Active Missions</h3>
-                            <p id="activeMissions">3</p>
+                            <p id="activeMissions">--</p> <!-- Placeholder -->
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon"><i class="fas fa-trophy"></i></div>
                             <h3>Completed Missions</h3>
-                            <p id="completedMissions">47</p>
+                            <p id="completedMissions">--</p> <!-- Placeholder -->
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon"><i class="fas fa-percentage"></i></div>
                             <h3>Attendance Rate</h3>
-                            <p id="attendanceRate">96%</p>
+                            <p id="attendanceRate">--%</p> <!-- Placeholder -->
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon"><i class="fas fa-coins"></i></div>
                             <h3>Current Balance</h3>
-                            <p id="currentBalance">₹ 75,000</p>
+                            <p id="currentBalance">₹ --</p> <!-- Placeholder -->
                         </div>
                     </div>
 
@@ -88,19 +95,19 @@
                     <div class="card">
                         <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
                         <div class="quick-actions">
-                            <button class="action-btn" onclick="switchSection('attendance')">
+                            <button class="action-btn" data-section-target="attendance"> <!-- Changed onclick to data-attribute -->
                                 <i class="fas fa-user-check"></i>
                                 <span>Mark Attendance</span>
                             </button>
-                            <button class="action-btn" onclick="switchSection('missions')">
+                            <button class="action-btn" data-section-target="missions"> <!-- Changed onclick to data-attribute -->
                                 <i class="fas fa-rocket"></i>
                                 <span>View Missions</span>
                             </button>
-                            <button class="action-btn" onclick="switchSection('feedback')">
+                            <button class="action-btn" data-section-target="feedback"> <!-- Changed onclick to data-attribute -->
                                 <i class="fas fa-comment-dots"></i>
                                 <span>Send Feedback</span>
                             </button>
-                            <button class="action-btn" onclick="switchSection('announcements')">
+                            <button class="action-btn" data-section-target="announcements"> <!-- Changed onclick to data-attribute -->
                                 <i class="fas fa-bullhorn"></i>
                                 <span>View Announcements</span>
                             </button>
@@ -110,37 +117,9 @@
                     <!-- Recent Activity -->
                     <div class="card">
                         <h3><i class="fas fa-clock"></i> Recent Activity</h3>
-                        <div class="activity-timeline">
-                            <div class="activity-item">
-                                <div class="activity-icon success">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Mission Completed</h4>
-                                    <p>Operation: Rescue Protocol completed successfully</p>
-                                    <time>2 hours ago</time>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon info">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Attendance Marked</h4>
-                                    <p>Check-in recorded at 09:15 AM</p>
-                                    <time>Today</time>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon warning">
-                                    <i class="fas fa-dollar-sign"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Payment Received</h4>
-                                    <p>Mission reward of ₹25,000 credited</p>
-                                    <time>Yesterday</time>
-                                </div>
-                            </div>
+                        <div id="recentActivityTimeline" class="activity-timeline">
+                            <!-- Activity items will be populated dynamically by JS -->
+                            <p class="no-data-message">No recent activity.</p>
                         </div>
                     </div>
                 </section>
@@ -152,79 +131,16 @@
                     <!-- Mission Filters -->
                     <div class="mission-filters">
                         <button class="filter-btn active" data-filter="all">All Missions</button>
-                        <button class="filter-btn" data-filter="active">Active</button>
-                        <button class="filter-btn" data-filter="completed">Completed</button>
-                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="ONGOING">Active</button> <!-- Changed to match ENUM -->
+                        <button class="filter-btn" data-filter="COMPLETED">Completed</button> <!-- Changed to match ENUM -->
+                        <button class="filter-btn" data-filter="FAILED">Failed</button> <!-- Added FAILED filter -->
+                        <button class="filter-btn" data-filter="MARTYRED">Martyred</button> <!-- Added MARTYRED filter -->
                     </div>
 
                     <!-- Missions Grid -->
-                    <div class="missions-container">
-                        <div class="mission-card active">
-                            <div class="mission-header">
-                                <h4>Operation: Cosmic Defense</h4>
-                                <span class="priority-badge critical">Critical</span>
-                            </div>
-                            <p class="mission-description">
-                                Investigate and neutralize the cosmic energy anomalies detected in sector 7. 
-                                Team up with Thor and Iron Man for this high-priority mission.
-                            </p>
-                            <div class="mission-details">
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Sector 7, Space Station</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>Thor, Iron Man, You</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>Due: 2024-01-25</span>
-                                </div>
-                            </div>
-                            <div class="mission-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 65%"></div>
-                                </div>
-                                <span class="progress-text">65% Complete</span>
-                            </div>
-                            <div class="mission-actions">
-                                <button class="button small-button primary-button">Update Status</button>
-                                <button class="button small-button">View Details</button>
-                            </div>
-                        </div>
-
-                        <div class="mission-card completed">
-                            <div class="mission-header">
-                                <h4>Operation: Rescue Protocol</h4>
-                                <span class="priority-badge high">High</span>
-                            </div>
-                            <p class="mission-description">
-                                Successful extraction of civilians from the disaster zone. 
-                                Coordinated with local authorities and medical teams.
-                            </p>
-                            <div class="mission-details">
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Manhattan, NYC</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>Captain America, You</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Completed: 2024-01-15</span>
-                                </div>
-                            </div>
-                            <div class="mission-status completed">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Mission Completed Successfully</span>
-                            </div>
-                            <div class="mission-actions">
-                                <button class="button small-button">View Report</button>
-                            </div>
-                        </div>
+                    <div id="missionsContainer" class="missions-container">
+                        <!-- Mission cards will be populated dynamically by JS -->
+                        <p class="no-data-message">No missions found.</p>
                     </div>
                 </section>
 
@@ -240,14 +156,11 @@
                                 <label for="attendance-code">Enter Attendance Code:</label>
                                 <input type="text" id="attendance-code" class="input-field code-input" placeholder="Enter 6-digit code" maxlength="6">
                             </div>
-                            <button id="submit-attendance" class="button primary-button large-button">
+                            <button id="submitAttendanceBtn" class="button primary-button large-button">
                                 <i class="fas fa-user-check"></i> Mark Attendance
                             </button>
                         </div>
-                        <div id="attendance-status" class="attendance-status hidden">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Attendance marked successfully!</span>
-                        </div>
+                        <div id="attendanceMessage" class="message mt-2"></div> <!-- Message display -->
                     </div>
 
                     <!-- Attendance History -->
@@ -255,11 +168,11 @@
                         <h3><i class="fas fa-history"></i> Attendance History</h3>
                         <div class="attendance-calendar">
                             <div class="calendar-header">
-                                <button class="nav-btn" id="prev-month"><i class="fas fa-chevron-left"></i></button>
-                                <h4 id="current-month">January 2024</h4>
-                                <button class="nav-btn" id="next-month"><i class="fas fa-chevron-right"></i></button>
+                                <button class="nav-btn" id="prevMonthBtn"><i class="fas fa-chevron-left"></i></button>
+                                <h4 id="currentMonthYear">January 2024</h4> <!-- Changed ID -->
+                                <button class="nav-btn" id="nextMonthBtn"><i class="fas fa-chevron-right"></i></button>
                             </div>
-                            <div class="calendar-grid">
+                            <div id="calendarGrid" class="calendar-grid">
                                 <div class="calendar-day header">Sun</div>
                                 <div class="calendar-day header">Mon</div>
                                 <div class="calendar-day header">Tue</div>
@@ -273,15 +186,15 @@
                         
                         <div class="attendance-stats">
                             <div class="stat">
-                                <span class="stat-number">23</span>
+                                <span id="daysPresent" class="stat-number">--</span> <!-- Placeholder -->
                                 <span class="stat-label">Days Present</span>
                             </div>
                             <div class="stat">
-                                <span class="stat-number">2</span>
+                                <span id="daysAbsent" class="stat-number">--</span> <!-- Placeholder -->
                                 <span class="stat-label">Days Absent</span>
                             </div>
                             <div class="stat">
-                                <span class="stat-number">96%</span>
+                                <span id="attendanceRateStat" class="stat-number">--%</span> <!-- Placeholder -->
                                 <span class="stat-label">Attendance Rate</span>
                             </div>
                         </div>
@@ -299,32 +212,32 @@
                                 <h3>Current Balance</h3>
                                 <i class="fas fa-wallet"></i>
                             </div>
-                            <div class="balance-amount">₹ 75,000</div>
+                            <div id="currentBalanceOverview" class="balance-amount">₹ --</div> <!-- Placeholder -->
                             <div class="balance-change positive">
                                 <i class="fas fa-arrow-up"></i>
-                                <span>+15% from last month</span>
+                                <span>+15% from last month</span> <!-- This might remain static or require complex backend logic -->
                             </div>
                         </div>
                         
                         <div class="balance-card">
                             <div class="balance-header">
-                                <h3>This Month</h3>
+                                <h3>This Month's Earnings</h3> <!-- Changed text for clarity -->
                                 <i class="fas fa-calendar"></i>
                             </div>
-                            <div class="balance-amount">₹ 25,000</div>
+                            <div id="thisMonthEarnings" class="balance-amount">₹ --</div> <!-- Placeholder -->
                             <div class="balance-change neutral">
-                                <span>Mission rewards</span>
+                                <span>Mission rewards & Salary</span>
                             </div>
                         </div>
                         
                         <div class="balance-card">
                             <div class="balance-header">
-                                <h3>Last Payment</h3>
+                                <h3>Last Transaction</h3> <!-- Changed text -->
                                 <i class="fas fa-money-bill"></i>
                             </div>
-                            <div class="balance-amount">₹ 15,000</div>
-                            <div class="balance-change neutral">
-                                <span>Jan 15, 2024</span>
+                            <div id="lastTransactionAmount" class="balance-amount">₹ --</div> <!-- Placeholder -->
+                            <div id="lastTransactionDate" class="balance-change neutral">
+                                <span>--</span> <!-- Placeholder -->
                             </div>
                         </div>
                     </div>
@@ -332,42 +245,9 @@
                     <!-- Transaction History -->
                     <div class="card">
                         <h3><i class="fas fa-history"></i> Transaction History</h3>
-                        <div class="transaction-list">
-                            <div class="transaction-item">
-                                <div class="transaction-icon credit">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                                <div class="transaction-details">
-                                    <h4>Mission Reward</h4>
-                                    <p>Operation: Rescue Protocol</p>
-                                    <time>Jan 15, 2024</time>
-                                </div>
-                                <div class="transaction-amount credit">+₹ 25,000</div>
-                            </div>
-                            
-                            <div class="transaction-item">
-                                <div class="transaction-icon credit">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                                <div class="transaction-details">
-                                    <h4>Monthly Salary</h4>
-                                    <p>January 2024 Salary</p>
-                                    <time>Jan 01, 2024</time>
-                                </div>
-                                <div class="transaction-amount credit">+₹ 50,000</div>
-                            </div>
-                            
-                            <div class="transaction-item">
-                                <div class="transaction-icon credit">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                                <div class="transaction-details">
-                                    <h4>Performance Bonus</h4>
-                                    <p>Q4 2023 Bonus</p>
-                                    <time>Dec 31, 2023</time>
-                                </div>
-                                <div class="transaction-amount credit">+₹ 20,000</div>
-                            </div>
+                        <div id="transactionList" class="transaction-list">
+                            <!-- Transaction items will be populated dynamically by JS -->
+                            <p class="no-data-message">No transaction history found.</p>
                         </div>
                     </div>
                 </section>
@@ -378,31 +258,31 @@
                     
                     <div class="card">
                         <h3><i class="fas fa-comment-dots"></i> Share Your Thoughts</h3>
-                        <form class="feedback-form">
+                        <form id="feedbackForm" class="feedback-form"> <!-- Added ID -->
                             <div class="form-group">
                                 <label for="feedback-category">Feedback Category:</label>
                                 <select id="feedback-category" class="input-field" required>
                                     <option value="">Select Category</option>
-                                    <option value="mission">Mission Operations</option>
-                                    <option value="equipment">Equipment & Resources</option>
-                                    <option value="communication">Communication</option>
-                                    <option value="training">Training Programs</option>
-                                    <option value="general">General Feedback</option>
-                                    <option value="suggestion">Suggestions</option>
+                                    <option value="MISSION_OPERATIONS">Mission Operations</option> <!-- Changed to ENUM-like value -->
+                                    <option value="EQUIPMENT_RESOURCES">Equipment & Resources</option>
+                                    <option value="COMMUNICATION">Communication</option>
+                                    <option value="TRAINING_PROGRAMS">Training Programs</option>
+                                    <option value="GENERAL_FEEDBACK">General Feedback</option>
+                                    <option value="SUGGESTIONS">Suggestions</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
                                 <label>Rate Your Experience:</label>
                                 <div class="rating-container">
-                                    <div class="star-rating">
+                                    <div id="starRating" class="star-rating"> <!-- Added ID -->
                                         <i class="fas fa-star" data-rating="1"></i>
                                         <i class="fas fa-star" data-rating="2"></i>
                                         <i class="fas fa-star" data-rating="3"></i>
                                         <i class="fas fa-star" data-rating="4"></i>
                                         <i class="fas fa-star" data-rating="5"></i>
                                     </div>
-                                    <span class="rating-text">Select a rating</span>
+                                    <span id="ratingText" class="rating-text">Select a rating</span> <!-- Added ID -->
                                 </div>
                             </div>
                             
@@ -427,51 +307,15 @@
                                 <i class="fas fa-paper-plane"></i> Send Feedback
                             </button>
                         </form>
+                        <div id="feedbackMessage" class="message mt-2"></div> <!-- Message display -->
                     </div>
 
                     <!-- Feedback History -->
                     <div class="card">
                         <h3><i class="fas fa-inbox"></i> Your Feedback History</h3>
-                        <div class="feedback-history">
-                            <div class="feedback-item">
-                                <div class="feedback-header">
-                                    <h4>Equipment Upgrade Suggestion</h4>
-                                    <span class="feedback-status pending">Pending Review</span>
-                                </div>
-                                <p>Suggested improvements to the web-shooter targeting system for better accuracy in urban environments.</p>
-                                <div class="feedback-meta">
-                                    <span class="feedback-date">Submitted: Jan 12, 2024</span>
-                                    <div class="feedback-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="feedback-item">
-                                <div class="feedback-header">
-                                    <h4>Mission Coordination Feedback</h4>
-                                    <span class="feedback-status reviewed">Reviewed</span>
-                                </div>
-                                <p>Communication protocols during the last mission worked excellently. Team coordination was seamless.</p>
-                                <div class="feedback-meta">
-                                    <span class="feedback-date">Submitted: Jan 08, 2024</span>
-                                    <div class="feedback-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                                <div class="admin-response">
-                                    <h5>Admin Response:</h5>
-                                    <p>Thank you for the positive feedback! We're glad the new protocols are working well.</p>
-                                </div>
-                            </div>
+                        <div id="feedbackHistoryList" class="feedback-history">
+                            <!-- Feedback history items will be populated dynamically by JS -->
+                            <p class="no-data-message">No feedback history found.</p>
                         </div>
                     </div>
                 </section>
@@ -480,56 +324,9 @@
                 <section id="announcements" class="dashboard-section hidden">
                     <h2 class="section-title">Announcements</h2>
                     
-                    <div class="announcements-container">
-                        <div class="announcement-item urgent">
-                            <div class="announcement-header">
-                                <div class="announcement-meta">
-                                    <h3>Emergency Protocol Update</h3>
-                                    <span class="priority-badge urgent">Urgent</span>
-                                </div>
-                                <span class="announcement-date">2 hours ago</span>
-                            </div>
-                            <div class="announcement-content">
-                                <p>All Avengers must report to HQ immediately for briefing on new emergency protocols. This is not a drill. Please confirm your attendance within the next hour.</p>
-                            </div>
-                            <div class="announcement-actions">
-                                <button class="button small-button primary-button">Acknowledge</button>
-                                <button class="button small-button">View Details</button>
-                            </div>
-                        </div>
-
-                        <div class="announcement-item important">
-                            <div class="announcement-header">
-                                <div class="announcement-meta">
-                                    <h3>New Training Program Launch</h3>
-                                    <span class="priority-badge important">Important</span>
-                                </div>
-                                <span class="announcement-date">1 day ago</span>
-                            </div>
-                            <div class="announcement-content">
-                                <p>We're excited to announce the launch of our new Advanced Combat Training Program. Registration opens next Monday. This program focuses on enhanced tactical combat techniques and team coordination strategies.</p>
-                            </div>
-                            <div class="announcement-actions">
-                                <button class="button small-button primary-button">Register Interest</button>
-                                <button class="button small-button">Learn More</button>
-                            </div>
-                        </div>
-
-                        <div class="announcement-item normal">
-                            <div class="announcement-header">
-                                <div class="announcement-meta">
-                                    <h3>Equipment Maintenance Schedule</h3>
-                                    <span class="priority-badge normal">Normal</span>
-                                </div>
-                                <span class="announcement-date">3 days ago</span>
-                            </div>
-                            <div class="announcement-content">
-                                <p>Scheduled maintenance for all equipment will take place this weekend. Please ensure all gear is submitted to the tech department by Friday evening.</p>
-                            </div>
-                            <div class="announcement-actions">
-                                <button class="button small-button">Mark as Read</button>
-                            </div>
-                        </div>
+                    <div id="announcementsContainer" class="announcements-container">
+                        <!-- Announcements will be populated dynamically by JS -->
+                        <p class="no-data-message">No announcements found.</p>
                     </div>
                 </section>
 
@@ -548,20 +345,20 @@
                             </div>
                         </div>
                         <div class="profile-info">
-                            <h3>Peter Parker</h3>
-                            <p class="profile-alias">Spider-Man</p>
-                            <p class="profile-role">Web-Slinger • Neighborhood Hero</p>
+                            <h3 id="profileName">Peter Parker</h3> <!-- Placeholder -->
+                            <p id="profileAlias" class="profile-alias">Spider-Man</p> <!-- Placeholder -->
+                            <p id="profileRole" class="profile-role">Web-Slinger • Neighborhood Hero</p> <!-- Placeholder -->
                             <div class="profile-stats">
                                 <div class="stat">
-                                    <span class="stat-value">47</span>
+                                    <span id="profileMissions" class="stat-value">--</span> <!-- Placeholder -->
                                     <span class="stat-label">Missions</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-value">96%</span>
+                                    <span id="profileAttendance" class="stat-value">--%</span> <!-- Placeholder -->
                                     <span class="stat-label">Attendance</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-value">4.8</span>
+                                    <span id="profileRating" class="stat-value">--</span> <!-- Placeholder -->
                                     <span class="stat-label">Rating</span>
                                 </div>
                             </div>
@@ -571,43 +368,44 @@
                     <!-- Profile Settings Form -->
                     <div class="card">
                         <h3><i class="fas fa-user-edit"></i> Edit Profile</h3>
-                        <form class="profile-form">
+                        <form id="profileForm" class="profile-form"> <!-- Added ID -->
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="profile-name">Full Name:</label>
-                                    <input type="text" id="profile-name" class="input-field" value="Peter Parker" required>
+                                    <label for="profile-name-input">Full Name:</label> <!-- Changed ID to avoid conflict -->
+                                    <input type="text" id="profile-name-input" class="input-field" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="profile-alias">Hero Alias:</label>
-                                    <input type="text" id="profile-alias" class="input-field" value="Spider-Man" required>
+                                    <label for="profile-alias-input">Hero Alias:</label> <!-- Changed ID to avoid conflict -->
+                                    <input type="text" id="profile-alias-input" class="input-field" required>
                                 </div>
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="profile-email">Email:</label>
-                                    <input type="email" id="profile-email" class="input-field" value="peter.parker@avengers.com" required>
+                                    <label for="profile-email-input">Email:</label> <!-- Changed ID to avoid conflict -->
+                                    <input type="email" id="profile-email-input" class="input-field" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="profile-phone">Phone:</label>
-                                    <input type="tel" id="profile-phone" class="input-field" value="+1 (555) 123-4567">
+                                    <label for="profile-phone-input">Phone:</label> <!-- Changed ID to avoid conflict -->
+                                    <input type="tel" id="profile-phone-input" class="input-field">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label for="profile-bio">Bio:</label>
-                                <textarea id="profile-bio" class="input-field" rows="4" placeholder="Tell us about yourself...">Friendly neighborhood Spider-Man, always ready to help those in need. With great power comes great responsibility.</textarea>
+                                <label for="profile-bio-input">Bio:</label> <!-- Changed ID to avoid conflict -->
+                                <textarea id="profile-bio-input" class="input-field" rows="4" placeholder="Tell us about yourself..."></textarea>
                             </div>
                             
                             <div class="form-group">
-                                <label for="profile-skills">Skills & Abilities:</label>
-                                <input type="text" id="profile-skills" class="input-field" value="Web-slinging, Wall-crawling, Spider-sense, Acrobatics" placeholder="List your special abilities">
+                                <label for="profile-skills-input">Skills & Abilities:</label> <!-- Changed ID to avoid conflict -->
+                                <input type="text" id="profile-skills-input" class="input-field" placeholder="List your special abilities">
                             </div>
                             
                             <button type="submit" class="button primary-button">
                                 <i class="fas fa-save"></i> Save Changes
                             </button>
                         </form>
+                        <div id="profileMessage" class="message mt-2"></div> <!-- Message display -->
                     </div>
 
                     <!-- Security Settings -->
@@ -619,7 +417,7 @@
                                     <h4>Change Password</h4>
                                     <p>Update your account password for better security</p>
                                 </div>
-                                <button class="button small-button">Change</button>
+                                <button id="changePasswordBtn" class="button small-button">Change</button>
                             </div>
                             
                             <div class="security-item">
@@ -627,7 +425,7 @@
                                     <h4>Two-Factor Authentication</h4>
                                     <p>Add an extra layer of security to your account</p>
                                 </div>
-                                <button class="button small-button primary-button">Enable</button>
+                                <button id="toggle2FABtn" class="button small-button primary-button">Enable</button>
                             </div>
                             
                             <div class="security-item">
@@ -635,7 +433,7 @@
                                     <h4>Login History</h4>
                                     <p>View your recent login activity</p>
                                 </div>
-                                <button class="button small-button">View</button>
+                                <button id="viewLoginHistoryBtn" class="button small-button">View</button>
                             </div>
                         </div>
                     </div>
@@ -644,7 +442,11 @@
         </div>
     </div>
 
+    <!-- Chart.js library for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Link to the universal style.js for dark mode toggle -->
+    <script src="/js/style.js"></script>
+    <!-- Link to the dashboard-specific JavaScript file -->
     <script src="/js/avenger_dashboard.js"></script>
-	<script src="/js/style.js"></script>
 </body>
 </html>
