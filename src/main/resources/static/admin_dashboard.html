@@ -3,298 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avengers Admin Dashboard</title>
-    <!-- Link to the universal theme stylesheet -->
+    <title>Avengers Command Center</title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Link to the dashboard-specific stylesheet -->
     <link rel="stylesheet" href="/css/admin_dashboard.css">
-    <!-- Font Awesome for icons (used throughout the dashboard) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Font: Inter (for a clean, modern look) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<!-- Body defaults to dark-mode based on the provided style.css setup -->
 <body class="dark-mode">
-    <!-- Video Background and Overlay -->
+    <!-- Background Video -->
     <div class="video-background">
-        <!-- Added playsinline for better mobile compatibility -->
-        <video autoplay muted loop id="bgVideo" playsinline poster="/images/marvel_intro_poster.jpg">
-            <source src="/videos/marvel_intro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
+        <video autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-futuristic-matrix-2395-large.mp4" type="video/mp4">
         </video>
     </div>
     <div class="video-overlay"></div>
 
-    <!-- Theme Switch Toggle -->
+    <!-- Theme Switch -->
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" checked />
-            <div class="slider round"></div>
+            <input type="checkbox" id="checkbox" />
+            <div class="slider"></div>
         </label>
         <em>Dark Mode</em>
     </div>
 
-    <!-- Main Content Wrapper -->
     <div class="content-wrapper">
-        <!-- Dashboard Header Section -->
+        <!-- Dashboard Header -->
         <header class="dashboard-header">
             <h1 class="dashboard-title">Avengers Command Center</h1>
-            <p class="welcome-message">Welcome, <span id="welcomeUsername">Captain!</span></p>
+            <p class="welcome-message">Earth's Mightiest Heroes Dashboard</p>
         </header>
 
-        <!-- Container for Sidebar and Main Content to allow them to sit side-by-side -->
         <div class="dashboard-layout-container">
-            <!-- Sidebar Navigation -->
+            <!-- Sidebar -->
             <nav class="sidebar">
                 <ul>
-                    <li class="nav-item active" data-section="overview"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</li>
-                    <li class="nav-item" data-section="payments"><i class="fas fa-dollar-sign"></i> Payments</li>
-                    <li class="nav-item" data-section="missions"><i class="fas fa-globe-americas"></i> Missions</li>
-                    <li class="nav-item" data-section="attendance"><i class="fas fa-user-check"></i> Attendance</li>
-                    <li class="nav-item" data-section="feedback"><i class="fas fa-comments"></i> Feedback</li>
-                    <li class="nav-item" data-section="posts"><i class="fas fa-bullhorn"></i> Announcements</li>
-                    <li class="nav-item" data-section="users"><i class="fas fa-users"></i> Manage Avengers</li>
-                    <li class="nav-item" data-section="stats"><i class="fas fa-chart-line"></i> Stats & Reports</li>
+                    <li class="nav-item active" data-section="overview">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Mission Overview</span>
+                    </li>
+                    <li class="nav-item" data-section="heroes">
+                        <i class="fas fa-users"></i>
+                        <span>Heroes Registry</span>
+                    </li>
+                    <li class="nav-item" data-section="missions">
+                        <i class="fas fa-crosshairs"></i>
+                        <span>Active Missions</span>
+                    </li>
+                    <li class="nav-item" data-section="attendance">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Attendance</span>
+                    </li>
+                    <li class="nav-item" data-section="reports">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Mission Reports</span>
+                    </li>
+                    <li class="nav-item" data-section="alerts">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Threat Alerts</span>
+                    </li>
+                    <li class="nav-item" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>System Settings</span>
+                    </li>
                 </ul>
-                <!-- Logout Button -->
-                <button id="logoutButton" class="button danger-button logout-sidebar-btn">Logout</button>
+                <button class="logout-sidebar-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
             </nav>
 
-            <!-- Main Content Area where different sections will be displayed -->
+            <!-- Main Content -->
             <main class="dashboard-main-content">
-                <!-- Overview Section (Default active section) -->
-                <section id="overview" class="dashboard-section active">
-                    <h2 class="section-title">Dashboard Overview</h2>
+                <!-- Overview Section -->
+                <section id="overview" class="dashboard-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        Mission Overview
+                    </h2>
+                    
+                    <!-- Stats Grid -->
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <h3>Total Avengers</h3>
-                            <p id="totalAvengers">--</p>
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Active Heroes</h3>
+                            <p>24</p>
                         </div>
                         <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-crosshairs"></i>
+                            </div>
                             <h3>Active Missions</h3>
-                            <p id="activeMissions">--</p>
+                            <p>8</p>
                         </div>
                         <div class="stat-card">
-                            <h3>Pending Feedback</h3>
-                            <p id="pendingFeedback">--</p>
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Threats Neutralized</h3>
+                            <p>156</p>
                         </div>
                         <div class="stat-card">
-                            <h3>Total Payments Sent (This Month)</h3>
-                            <p id="totalPayments">₹ --</p>
+                            <div class="stat-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3>Cities Protected</h3>
+                            <p>47</p>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="card">
+                        <h3><i class="fas fa-clock"></i> Recent Activities</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <i class="fas fa-user-plus activity-icon"></i>
+                                <span>Spider-Man joined the team</span>
+                                <time>2 hours ago</time>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-crosshairs activity-icon"></i>
+                                <span>Mission "Operation Thunder" completed</span>
+                                <time>4 hours ago</time>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-exclamation-triangle activity-icon"></i>
+                                <span>New threat detected in New York</span>
+                                <time>6 hours ago</time>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-shield-alt activity-icon"></i>
+                                <span>Defensive systems upgraded</span>
+                                <time>1 day ago</time>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Payments Section -->
-                <section id="payments" class="dashboard-section hidden">
-                    <h2 class="section-title">Payments Management</h2>
-                    <div class="card">
-                        <h3>Send Salaries</h3>
-                        <form id="sendSalaryForm" class="payment-form">
-                            <div class="form-group">
-                                <label for="salary-recipient">Recipient Avenger:</label>
-                                <select id="salary-recipient" class="input-field" required>
-                                    <option value="">Select Avenger</option>
-                                </select>
+                <!-- Heroes Section -->
+                <section id="heroes" class="dashboard-section hidden">
+                    <h2 class="section-title">
+                        <i class="fas fa-users"></i>
+                        Heroes Registry
+                    </h2>
+                    
+                    <div class="avengers-grid">
+                        <div class="avenger-card">
+                            <div class="avenger-avatar">
+                                <i class="fas fa-bolt"></i>
                             </div>
-                            <div class="form-group">
-                                <label for="salary-amount">Amount (₹):</label>
-                                <input type="number" id="salary-amount" class="input-field" placeholder="e.g., 50000" min="1" required>
+                            <div class="avenger-info">
+                                <h4>Tony Stark</h4>
+                                <div class="avenger-alias">Iron Man</div>
+                                <div class="avenger-role">Tech Specialist</div>
+                                <div class="avenger-stats">
+                                    <div class="stat">
+                                        <span class="stat-label">Power Level</span>
+                                        <span class="stat-value">95</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">Missions</span>
+                                        <span class="stat-value">127</span>
+                                    </div>
+                                </div>
+                                <div class="avenger-actions">
+                                    <button class="button primary-button small-button">View Profile</button>
+                                    <button class="button small-button">Contact</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="salary-type">Payment Type:</label>
-                                <select id="salary-type" class="input-field" required>
-                                    <option value="SEND_MONEY">Send Money</option>
-                                    <option value="SALARY">Salary</option>
-                                </select>
-                            </div>
-                            <div class="form-group advanced-amount-group hidden">
-                                <label for="advanced-amount">Advanced Amount (₹):</label>
-                                <input type="number" id="advanced-amount" class="input-field" placeholder="e.g., 10000" min="0">
-                            </div>
-                            <button type="submit" class="button primary-button">Send Payment</button>
-                        </form>
-                        <div id="paymentMessage" class="message mt-2"></div>
-                    </div>
+                        </div>
 
-                    <div class="card mt-4">
-                        <h3>Payment Records</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Sender</th>
-                                    <th>Recipient</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody id="paymentRecordsTableBody">
-                            </tbody>
-                        </table>
+                        <div class="avenger-card">
+                            <div class="avenger-avatar">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="avenger-info">
+                                <h4>Steve Rogers</h4>
+                                <div class="avenger-alias">Captain America</div>
+                                <div class="avenger-role">Team Leader</div>
+                                <div class="avenger-stats">
+                                    <div class="stat">
+                                        <span class="stat-label">Power Level</span>
+                                        <span class="stat-value">88</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">Missions</span>
+                                        <span class="stat-value">203</span>
+                                    </div>
+                                </div>
+                                <div class="avenger-actions">
+                                    <button class="button primary-button small-button">View Profile</button>
+                                    <button class="button small-button">Contact</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="avenger-card">
+                            <div class="avenger-avatar">
+                                <i class="fas fa-hammer"></i>
+                            </div>
+                            <div class="avenger-info">
+                                <h4>Thor Odinson</h4>
+                                <div class="avenger-alias">God of Thunder</div>
+                                <div class="avenger-role">Heavy Assault</div>
+                                <div class="avenger-stats">
+                                    <div class="stat">
+                                        <span class="stat-label">Power Level</span>
+                                        <span class="stat-value">98</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">Missions</span>
+                                        <span class="stat-value">89</span>
+                                    </div>
+                                </div>
+                                <div class="avenger-actions">
+                                    <button class="button primary-button small-button">View Profile</button>
+                                    <button class="button small-button">Contact</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="avenger-card">
+                            <div class="avenger-avatar">
+                                <i class="fas fa-spider"></i>
+                            </div>
+                            <div class="avenger-info">
+                                <h4>Peter Parker</h4>
+                                <div class="avenger-alias">Spider-Man</div>
+                                <div class="avenger-role">Scout & Recon</div>
+                                <div class="avenger-stats">
+                                    <div class="stat">
+                                        <span class="stat-label">Power Level</span>
+                                        <span class="stat-value">82</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">Missions</span>
+                                        <span class="stat-value">45</span>
+                                    </div>
+                                </div>
+                                <div class="avenger-actions">
+                                    <button class="button primary-button small-button">View Profile</button>
+                                    <button class="button small-button">Contact</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Missions Section -->
                 <section id="missions" class="dashboard-section hidden">
-                    <h2 class="section-title">Mission Management</h2>
-                    <div class="card">
-                        <h3>Assign New Mission</h3>
-                        <form id="assignMissionForm" class="mission-form">
-                            <div class="form-group">
-                                <label for="mission-name">Mission Name:</label>
-                                <input type="text" id="mission-name" class="input-field" placeholder="e.g., Hydra Base Infiltration" required>
+                    <h2 class="section-title">
+                        <i class="fas fa-crosshairs"></i>
+                        Active Missions
+                    </h2>
+                    
+                    <div class="missions-grid">
+                        <div class="mission-card">
+                            <div class="mission-header">
+                                <h4>Operation Thunder Strike</h4>
+                                <span class="priority-badge critical">Critical</span>
                             </div>
-                            <div class="form-group">
-                                <label for="mission-description">Description:</label>
-                                <textarea id="mission-description" class="input-field" rows="3" placeholder="Detailed mission brief..." required></textarea>
+                            <div class="mission-description">
+                                Neutralize hostile forces threatening downtown Manhattan. Multiple civilians at risk.
                             </div>
-                            <div class="form-group">
-                                <label for="mission-members">Assign Members:</label>
-                                <select id="mission-members" class="input-field" multiple required>
-                                </select>
+                            <div class="mission-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Manhattan, New York</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Iron Man, Captain America, Thor</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Started 2 hours ago</span>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="mission-status">Status:</label>
-                                <select id="mission-status" class="input-field" required>
-                                    <option value="ONGOING">Ongoing</option>
-                                    <option value="COMPLETED">Completed</option>
-                                    <option value="FAILED">Failed</option>
-                                    <option value="MARTYRED">Martyred</option>
-                                </select>
+                            <div class="mission-actions">
+                                <button class="button primary-button small-button">Monitor</button>
+                                <button class="button small-button">Details</button>
                             </div>
-                            <button type="submit" class="button primary-button">Assign Mission</button>
-                        </form>
-                        <div id="missionMessage" class="message mt-2"></div>
-                    </div>
+                        </div>
 
-                    <div class="card mt-4">
-                        <h3>Current Missions</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Mission Name</th>
-                                    <th>Description</th>
-                                    <th>Members</th>
-                                    <th>Status</th>
-                                    <th>Assigned By</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="missionsTableBody">
-                            </tbody>
-                        </table>
+                        <div class="mission-card">
+                            <div class="mission-header">
+                                <h4>Rescue Operation Alpha</h4>
+                                <span class="priority-badge high">High</span>
+                            </div>
+                            <div class="mission-description">
+                                Extract civilians from collapsed building following seismic activity.
+                            </div>
+                            <div class="mission-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Los Angeles, California</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Spider-Man, Hulk</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Started 45 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="mission-actions">
+                                <button class="button primary-button small-button">Monitor</button>
+                                <button class="button small-button">Details</button>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Attendance Section -->
                 <section id="attendance" class="dashboard-section hidden">
-                    <h2 class="section-title">Attendance System</h2>
-                    <div class="card">
-                        <h3>Start Attendance Session</h3>
-                        <button id="start-attendance-btn" class="button primary-button">Generate Attendance Code</button>
-                        <div id="attendance-code-display" class="attendance-code-display hidden mt-3">
-                            <p>Code: <span id="attendance-code"></span> (Valid for <span id="countdown">60</span> seconds)</p>
+                    <h2 class="section-title">
+                        <i class="fas fa-calendar-check"></i>
+                        Hero Attendance
+                    </h2>
+                    
+                    <div class="attendance-code-display">
+                        <h3>Daily Check-in Code</h3>
+                        <div class="code-container">
+                            <div class="attendance-code" id="attendanceCode">A7X9K2</div>
                         </div>
-                        <div id="attendanceSessionMessage" class="message mt-2"></div>
+                        <div class="countdown-container">
+                            <i class="fas fa-clock"></i>
+                            <span>Code expires in: <span id="countdown">04:32</span></span>
+                        </div>
+                        <p class="code-instructions">Heroes must use this code to confirm their availability</p>
+                        <button class="button primary-button">Generate New Code</button>
                     </div>
-                    <div class="card mt-4">
-                        <h3>Attendance Records</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Session Code</th>
-                                    <th>Avenger</th>
-                                    <th>Marked At</th>
-                                </tr>
-                            </thead>
-                            <tbody id="attendanceRecordsTableBody">
-                            </tbody>
-                        </table>
+
+                    <div class="card">
+                        <h3><i class="fas fa-chart-bar"></i> Attendance Statistics</h3>
+                        <div class="stats-row">
+                            <div class="stat-item">
+                                <span class="stat-number">18</span>
+                                <span class="stat-label">Present Today</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">6</span>
+                                <span class="stat-label">On Mission</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">2</span>
+                                <span class="stat-label">Unavailable</span>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <!-- Feedback Section -->
-                <section id="feedback" class="dashboard-section hidden">
-                    <h2 class="section-title">Received Feedback</h2>
+                <!-- Reports Section -->
+                <section id="reports" class="dashboard-section hidden">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-alt"></i>
+                        Mission Reports
+                    </h2>
+                    
                     <div class="card">
-                        <p>Feedback received from Avengers:</p>
-                        <div id="feedbackList">
-                            <p class="no-data-message">No feedback received yet.</p>
+                        <h3><i class="fas fa-chart-line"></i> Performance Summary</h3>
+                        <div class="report-summary">
+                            <div class="report-item">
+                                <h4>Mission Success Rate</h4>
+                                <p>Current success rate stands at 94.2% with 156 successful missions completed this quarter. Notable improvements in response time and coordination.</p>
+                            </div>
+                            <div class="report-item">
+                                <h4>Hero Performance</h4>
+                                <p>Top performers this month: Iron Man (12 missions), Captain America (11 missions), and Thor (9 missions). All heroes maintaining excellent performance standards.</p>
+                            </div>
+                            <div class="report-item">
+                                <h4>Threat Analysis</h4>
+                                <p>Threat levels have decreased by 23% compared to last quarter. Enhanced early warning systems proving effective in threat prevention.</p>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Announcements Section -->
-                <section id="posts" class="dashboard-section hidden">
-                    <h2 class="section-title">Announcements</h2>
+                <!-- Alerts Section -->
+                <section id="alerts" class="dashboard-section hidden">
+                    <h2 class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Threat Alerts
+                    </h2>
+                    
+                    <div class="announcements-list">
+                        <div class="announcement-item urgent">
+                            <div class="announcement-header">
+                                <h4>URGENT: Alien Activity Detected</h4>
+                                <span class="priority-badge critical">Critical</span>
+                                <span class="announcement-date">2 minutes ago</span>
+                            </div>
+                            <p>Unidentified flying objects detected over major metropolitan areas. All available heroes report for immediate deployment.</p>
+                            <div class="announcement-actions">
+                                <button class="button danger-button small-button">Deploy Heroes</button>
+                                <button class="button small-button">View Details</button>
+                            </div>
+                        </div>
+
+                        <div class="announcement-item">
+                            <div class="announcement-header">
+                                <h4>System Maintenance Scheduled</h4>
+                                <span class="priority-badge high">High</span>
+                                <span class="announcement-date">1 hour ago</span>
+                            </div>
+                            <p>Scheduled maintenance for communication systems will occur tonight from 2:00 AM to 4:00 AM EST.</p>
+                            <div class="announcement-actions">
+                                <button class="button primary-button small-button">Acknowledge</button>
+                                <button class="button small-button">Reschedule</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="dashboard-section hidden">
+                    <h2 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        System Settings
+                    </h2>
+                    
                     <div class="card">
-                        <h3>Create New Announcement</h3>
-                        <form id="createAnnouncementForm" class="announcement-form">
-                            <div class="form-group">
-                                <label for="announcement-title">Title:</label>
-                                <input type="text" id="announcement-title" class="input-field" placeholder="e.g., Important Update: New Training Protocol" required>
+                        <h3><i class="fas fa-user-cog"></i> User Preferences</h3>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" class="input-field" value="nick.fury" placeholder="Enter username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" class="input-field" value="director@shield.gov" placeholder="Enter email">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="announcement-content">Content:</label>
-                                <textarea id="announcement-content" class="input-field" rows="5" placeholder="Write your announcement here..." required></textarea>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="role">Role</label>
+                                    <input type="text" id="role" class="input-field" value="Director" placeholder="Enter role">
+                                </div>
+                                <div class="form-group">
+                                    <label for="clearance">Security Clearance</label>
+                                    <input type="text" id="clearance" class="input-field" value="Level 10" placeholder="Enter clearance level">
+                                </div>
                             </div>
-                            <button type="submit" class="button primary-button">Post Announcement</button>
+                            <button type="submit" class="button primary-button">Update Profile</button>
                         </form>
-                        <div id="announcementMessage" class="message mt-2"></div>
                     </div>
-                    <div class="card mt-4">
-                        <h3>Recent Announcements</h3>
-                        <div id="announcementsList">
-                            <p class="no-data-message">No announcements posted yet.</p>
+
+                    <div class="card">
+                        <h3><i class="fas fa-shield-alt"></i> Security Settings</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked> Enable two-factor authentication
+                            </label>
                         </div>
-                    </div>
-                </section>
-
-                <!-- Manage Avengers Section -->
-                <section id="users" class="dashboard-section hidden">
-                    <h2 class="section-title">Manage Avengers</h2>
-                    <div class="card">
-                        <h3>Avengers Roster</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Balance</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="avengersRosterTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- Stats & Reports Section -->
-                <section id="stats" class="dashboard-section hidden">
-                    <h2 class="section-title">Stats & Reports</h2>
-                    <div class="card">
-                        <h3>Attendance Percentage</h3>
-                        <canvas id="attendanceChart" width="400" height="200"></canvas>
-                    </div>
-                    <div class="card mt-4">
-                        <h3>Mission Completion Rate</h3>
-                        <canvas id="missionChart" width="400" height="200"></canvas>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked> Require biometric verification
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox"> Enable automatic logout
+                            </label>
+                        </div>
+                        <button class="button primary-button">Save Security Settings</button>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
-    <!-- Chart.js library for graphs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Link to the universal style.js for dark mode toggle -->
-    <script src="/js/style.js"></script>
-    <!-- Link to the dashboard-specific JavaScript file -->
-    <script src="/js/admin_dashboard.js"></script>
+    <script src="script.js"></script>
+    <script src="admin_dashboard.js"></script>
 </body>
 </html>
