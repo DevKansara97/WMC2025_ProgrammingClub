@@ -60,7 +60,7 @@ body.light-mode .video-overlay {
 }
 
 body.dark-mode {
-  background-color: #0a0a0a;
+  background-color: #000000;
   color: #e9ecef;
 }
 

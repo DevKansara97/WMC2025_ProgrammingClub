@@ -12,7 +12,13 @@
 .theme-switch-wrapper em {
   color: #fff;
   font-style: normal;
-  font-weight: 500;
+  font-family: 'nougat-extrablack-webfont', 'Nougat ExtraBlack', sans-serif;
+  font-weight: 650;
+  font-size: 1rem;
+}
+
+body.light-mode .theme-switch-wrapper em {
+  color: #000;
 }
 
 .theme-switch {
@@ -35,7 +41,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #1e1e1e;
   transition: .4s;
 }
 
@@ -46,12 +52,12 @@
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #f8f8f8;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #dc3545;
+  background-color: #f8f8f8;
 }
 
 input:focus + .slider {
@@ -60,7 +66,9 @@ input:focus + .slider {
 
 input:checked + .slider:before {
   transform: translateX(26px);
+  background-color: #131313;
 }
+
 
 .slider.round {
   border-radius: 34px;

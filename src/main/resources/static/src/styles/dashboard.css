@@ -50,11 +50,16 @@
 }
 
 body.light-mode .dashboard-header {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.2);
   border-bottom-color: rgba(220, 53, 69, 0.2);
 }
+body.light-mode .avenger-dashboard .dashboard-header{
+  border-bottom-color: #2007ff;
+}
 
-
+.avenger-dashboard .dashboard-header{
+  border-bottom-color: #2007ff;
+}
 .dashboard-title {
   font-family: 'Avengers', sans-serif;
   font-size: 2.5rem;
@@ -68,14 +73,15 @@ body.light-mode .dashboard-header {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
+  padding-left: 10px;
 }
 
 .avenger-dashboard .dashboard-title {
-  background: linear-gradient(135deg, #5227FF, #7c3aed);
+  background: linear-gradient(135deg, #3209d5, #3209d5);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(82, 39, 255, 0.6);
+  text-shadow: 0 0 20px rgba(39, 50, 255, 0.6);
 }
 
 /* Horizontal Navigation */
@@ -166,43 +172,43 @@ body.light-mode .logout-nav-btn {
 
 /* Avenger Dashboard Navigation Colors */
 .avenger-dashboard .nav-button {
-  border-color: rgba(82, 39, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.2);
 }
 
 body.light-mode .avenger-dashboard .nav-button {
-  border-color: rgba(82, 39, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.2);
 }
 
 .avenger-dashboard .nav-button:hover {
-  background: rgba(82, 39, 255, 0.2);
-  border-color: rgba(82, 39, 255, 0.5);
-  box-shadow: 0 4px 15px rgba(82, 39, 255, 0.2);
+  background: rgba(39, 46, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.5);
+  box-shadow: 0 4px 15px rgba(39, 46, 255, 0.2);
 }
 
 body.light-mode .avenger-dashboard .nav-button:hover {
-  color: #5227FF;
+  color: #3209d5;
 }
 
 .avenger-dashboard .nav-button.active {
-  background: linear-gradient(45deg, #5227FF, #7c3aed);
-  border-color: #5227FF;
-  box-shadow: 0 4px 15px rgba(82, 39, 255, 0.3);
+  background: linear-gradient(45deg, #3209d5, #105cea);
+  border-color: #3209d5;
+  box-shadow: 0 4px 15px rgba(39, 46, 255, 0.3);
 }
 
 .avenger-dashboard .logout-nav-btn {
-  background: rgba(82, 39, 255, 0.2);
-  border-color: rgba(82, 39, 255, 0.5);
-  color: #5227FF;
+  background: rgba(39, 46, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.5);
+  color: #3209d5;
 }
 
 body.light-mode .avenger-dashboard .logout-nav-btn {
-  background: rgba(82, 39, 255, 0.1);
-  border-color: rgba(82, 39, 255, 0.3);
+  background: rgba(39, 46, 255, 0.1);
+  border-color: rgba(39, 46, 255, 0.3);
 }
 
 .avenger-dashboard .logout-nav-btn:hover {
-  background: rgba(82, 39, 255, 0.3);
-  box-shadow: 0 4px 15px rgba(82, 39, 255, 0.2);
+  background: rgba(39, 46, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(39, 46, 255, 0.2);
 }
 
 
@@ -236,11 +242,11 @@ body.light-mode .dashboard-main-content {
 }
 
 .avenger-dashboard .dashboard-main-content {
-  border-color: rgba(82, 39, 255, 0.3);
+  border-color: rgba(39, 46, 255, 0.3);
 }
 
 body.light-mode .avenger-dashboard .dashboard-main-content {
-  border-color: rgba(82, 39, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.2);
 }
 
 .dashboard-section {
@@ -359,11 +365,11 @@ body.light-mode .card {
 }
 
 .avenger-dashboard .card {
-  border-color: rgba(82, 39, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.2);
 }
 
 body.light-mode .avenger-dashboard .card {
-  border-color: rgba(82, 39, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.2);
 }
 
 .card::before {
@@ -378,7 +384,7 @@ body.light-mode .avenger-dashboard .card {
 }
 
 .avenger-dashboard .card::before {
-  background: linear-gradient(135deg, #5227FF, #7c3aed);
+  background: linear-gradient(135deg, #3209d5, #105cea);
 }
 
 .card:hover {
@@ -388,8 +394,8 @@ body.light-mode .avenger-dashboard .card {
 }
 
 .avenger-dashboard .card:hover {
-  box-shadow: 0 12px 40px rgba(82, 39, 255, 0.2);
-  border-color: rgba(82, 39, 255, 0.4);
+  box-shadow: 0 12px 40px rgba(39, 46, 255, 0.2);
+  border-color: rgba(39, 46, 255, 0.4);
 }
 
 .card h3 {
@@ -406,7 +412,7 @@ body.light-mode .avenger-dashboard .card {
 }
 
 .avenger-dashboard .card h3 {
-  color: #5227FF;
+  color: #3209d5;
 }
 
 /* Quick Actions */
@@ -438,14 +444,14 @@ body.light-mode .action-btn {
 }
 
 .avenger-dashboard .action-btn {
-  background: rgba(82, 39, 255, 0.1);
-  border-color: rgba(82, 39, 255, 0.3);
+  background: rgba(12, 16, 136, 0.1);
+  border-color: rgba(39, 46, 255, 0.3);
 }
 
 body.light-mode .avenger-dashboard .action-btn {
-  background: rgba(82, 39, 255, 0.05);
-  border-color: rgba(82, 39, 255, 0.2);
-  color: #5227FF;
+  background: rgba(39, 46, 255, 0.05);
+  border-color: rgba(39, 46, 255, 0.2);
+  color: #3209d5;
 }
 
 .action-btn:hover {
@@ -455,8 +461,8 @@ body.light-mode .avenger-dashboard .action-btn {
 }
 
 .avenger-dashboard .action-btn:hover {
-  background: rgba(82, 39, 255, 0.2);
-  box-shadow: 0 5px 15px rgba(82, 39, 255, 0.3);
+  background: rgba(39, 46, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(39, 46, 255, 0.3);
 }
 
 .action-btn i {
@@ -465,7 +471,7 @@ body.light-mode .avenger-dashboard .action-btn {
 }
 
 .avenger-dashboard .action-btn i {
-  color: #5227FF;
+  color: #3209d5;
 }
 
 body.light-mode .action-btn i {
@@ -473,7 +479,7 @@ body.light-mode .action-btn i {
 }
 
 body.light-mode .avenger-dashboard .action-btn i {
-  color: #5227FF;
+  color: #3209d5;
 }
 
 /* Activity List */
@@ -500,7 +506,7 @@ body.light-mode .activity-item {
 }
 
 .avenger-dashboard .activity-item {
-  border-left-color: #5227FF;
+  border-left-color: #3209d5;
 }
 
 .activity-item:hover {
@@ -520,7 +526,7 @@ body.light-mode .activity-item:hover {
 }
 
 .avenger-dashboard .activity-icon {
-  color: #5227FF;
+  color: #3209d5;
 }
 
 .activity-item span {
@@ -580,6 +586,8 @@ body.light-mode .avenger-card {
   background: rgba(220, 53, 69, 0.1);
   border-radius: 50%;
   border: 2px solid rgba(220, 53, 69, 0.3);
+  height: 100px;
+  width: 100px;
 }
 
 .avenger-info h4 {
@@ -609,6 +617,11 @@ body.light-mode .avenger-info h4 {
 
 body.light-mode .avenger-role {
   color: rgba(0, 0, 0, 0.6);
+}
+
+.dashboard-title-span{
+  padding-right:10px;
+  padding-left: 10px;
 }
 
 .avenger-stats {
@@ -684,8 +697,8 @@ body.light-mode .stat-label {
 }
 
 .avenger-dashboard .primary-button {
-  background: linear-gradient(45deg, #5227FF, #7c3aed);
-  box-shadow: 0 4px 15px rgba(82, 39, 255, 0.2);
+  background: linear-gradient(45deg, #3209d5, #105cea);
+  box-shadow: 0 4px 15px rgba(39, 46, 255, 0.2);
 }
 
 .primary-button:hover {
@@ -695,7 +708,7 @@ body.light-mode .stat-label {
 }
 
 .avenger-dashboard .primary-button:hover {
-  box-shadow: 0 8px 25px rgba(82, 39, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(39, 46, 255, 0.4);
 }
 
 .small-button {
