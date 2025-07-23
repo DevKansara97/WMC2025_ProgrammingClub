@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; // <--- Keep this import
 import java.time.YearMonth;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
@@ -137,16 +137,19 @@ public class AttendanceService {
      * @return A map containing "daysPresent", "daysAbsent", "attendanceRate".
      */
     public AttendanceStatsDTO getAttendanceStatsForAvenger(User avengerUser, YearMonth yearMonth) {
-        LocalDate startOfMonth = yearMonth.atDay(1);
-        LocalDate endOfMonth = yearMonth.atEndOfMonth();
+        // Line 150 refers to this method call, and specifically the parameters passed to countByUserAndMarkedAtBetween
+        // Changed startOfMonth and endOfMonth from LocalDate to LocalDateTime
+        LocalDateTime startOfMonth = yearMonth.atDay(1).atStartOfDay(); // Correct: 2025-07-01T00:00:00
+        LocalDateTime endOfMonth = yearMonth.atEndOfMonth().atTime(23, 59, 59, 999_999_999); // Correct: 2025-07-31T23:59:59.999999999
 
         // Count actual workdays in the month (excluding weekends)
-        long totalWorkDaysInMonth = IntStream.rangeClosed(1, endOfMonth.getDayOfMonth())
+        long totalWorkDaysInMonth = IntStream.rangeClosed(1, yearMonth.lengthOfMonth()) // Use yearMonth.lengthOfMonth() for clarity
                 .mapToObj(day -> LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), day))
                 .filter(date -> date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY)
                 .count();
 
         // Count days present from records for the given month
+        // Now passing LocalDateTime objects, which will match the repository method
         long daysPresent = recordRepository.countByUserAndMarkedAtBetween(avengerUser, startOfMonth, endOfMonth);
 
         long daysAbsent = totalWorkDaysInMonth - daysPresent;
