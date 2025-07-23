@@ -532,10 +532,10 @@ export const AdminDashboard = () => {
         zIndex: -1
       }}>
         <DotGrid
-          dotSize={8}
-          gap={22}
+          dotSize={2}
+          gap={18}
           baseColor="#2a2a2a"
-          activeColor="#ff4757" // Admin dashboard specific color
+          activeColor={isDark ? "#ff4757" : "#ff2020"}// Admin dashboard specific color
           proximity={80}
           shockRadius={120}
           shockStrength={4}
@@ -546,7 +546,7 @@ export const AdminDashboard = () => {
 
       {/* Dashboard Header */}
       <header className="dashboard-header">
-        <h1 className="dashboard-title">Admin Dashboard</h1>
+        <h1 className="dashboard-title">Admin<span className='dashboard-title-span'>  Dashboard</span></h1>
         <nav className="horizontal-nav">
           {/* Navigation Items */}
           {[
