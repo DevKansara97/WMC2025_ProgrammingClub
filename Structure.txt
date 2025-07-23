@@ -17,32 +17,35 @@ src/main/java/
 │
 ├── com/au/cl/dto/
 │   ├── AnnouncementCreateRequest.java
-│   ├── AnnouncementDTO.java             <-- NEW
-│   ├── AttendanceRecordDTO.java         <-- NEW
-│   ├── AttendanceSessionResponse.java   <-- NEW
-│   ├── DashboardStatsDTO.java           <-- NEW
-│   ├── FeedbackDTO.java                 <-- NEW
-│   ├── MissionCreateRequest.java        <-- NEW
-│   ├── MissionDTO.java                  <-- NEW
-│   ├── PaymentRequest.java              <-- NEW
-│   ├── TransactionDTO.java              <-- NEW
+│   ├── AnnouncementDTO.java             
+│   ├── AttendanceRecordDTO.java         
+│   ├── AttendanceSessionResponse.java   
+│   ├── DashboardStatsDTO.java           
+|   ├── FeedbackCreateRequest.java
+│   ├── FeedbackDTO.java                 
+│   ├── MissionCreateRequest.java        
+│   ├── MissionDTO.java                  
+│   ├── PaymentRequest.java 
+│   ├── ProfileUpdateRequest.java              
+│   ├── TransactionDTO.java              
 │   ├── UserCreateRequest.java
-│   └── UserDTO.java                     <-- NEW
+│   └── UserDTO.java                     
 │
 ├── com/au/cl/filter/
 │   └── JwtRequestFilter.java
 │
 ├── com/au/cl/model/
-│   ├── Announcement.java                <-- NEW
-│   ├── AttendanceRecord.java            <-- NEW
-│   ├── AttendanceSession.java           <-- NEW
+│   ├── Announcement.java                
+│   ├── AttendanceRecord.java            
+│   ├── AttendanceSession.java           
 │   ├── AuthRequest.java
 │   ├── AuthResponse.java
-│   ├── Feedback.java                    <-- NEW
-│   ├── Mission.java                     <-- NEW
-│   ├── MissionParticipant.java          <-- NEW
+│   ├── Feedback.java                    
+│   ├── FeedbackCategory.java  
+│   ├── Mission.java                     
+│   ├── MissionParticipant.java          
 │   ├── Role.java (Enum)
-│   ├── Transaction.java                 <-- NEW
+│   ├── Transaction.java                 
 │   └── User.java
 │
 ├── com/au/cl/payload/request/
@@ -53,22 +56,23 @@ src/main/java/
 │   └── ApiResponse.java
 │
 ├── com/au/cl/repository/
-│   ├── AnnouncementRepository.java      <-- NEW
-│   ├── AttendanceRecordRepository.java  <-- NEW
-│   ├── AttendanceSessionRepository.java <-- NEW
-│   ├── FeedbackRepository.java          <-- NEW
-│   ├── MissionParticipantRepository.java<-- NEW
-│   ├── MissionRepository.java           <-- NEW
-│   ├── TransactionRepository.java       <-- NEW
+│   ├── AnnouncementRepository.java      
+│   ├── AttendanceRecordRepository.java  
+│   ├── AttendanceSessionRepository.java 
+│   ├── FeedbackRepository.java          
+│   ├── MissionParticipantRepository.java
+│   ├── MissionRepository.java           
+│   ├── TransactionRepository.java       
 │   └── UserRepository.java
 │
 ├── com/au/cl/service/
-│   ├── AnnouncementService.java         <-- NEW
-│   ├── AttendanceService.java           <-- NEW
-│   ├── FeedbackService.java             <-- NEW
-│   ├── MissionService.java              <-- NEW
-│   ├── TransactionService.java          <-- NEW
-│   └── UserDetailsServiceImpl.java
+│   ├── AnnouncementService.java         
+│   ├── AttendanceService.java           
+│   ├── FeedbackService.java             
+│   ├── MissionService.java              
+│   ├── TransactionService.java          
+│   ├── UserDetailsServiceImpl.java
+|   └── UserService.java
 │
 └── com/au/cl/util/
     └── JwtUtil.java
@@ -76,31 +80,32 @@ src/main/java/
 
 src/main/resources/
 ├── application.properties
-├── template/
-│   └── (Template files, if any, e.g., Thymeleaf, Freemarker)
-│
+|
 └── static/
-    ├── css/
-    │   ├── admin_dashboard.css          <-- Updated/Themed
-    │   ├── index.css
-    │   ├── register.css
-    │   └── style.css                    <-- Updated/Themed (Global)
-    │
+    │__ src/
+    |   |__ components/
+    |   |__ contexts/
+    |   |__ pages/
+    |   |   |__ AdminDashboard.jsx
+    |   |   |__ AvengerDashboard.jsx
+    |   |   |__ Login.jsx
+    |   |   |__ Register.jsx
+    |   |   
+    |   |__ styles/
+    |   |   |__ auth.css 
+    |   |   |__ dashboard.css
+    |   |   |__ index.css
+    |   |   |__ theme-toggle.css
+    |   |   
+    |   |__ App.jsx
+    |   |__ main.jsx
+    |
     ├── js/
-    │   ├── admin_dashboard.js           <-- Updated (Connects to backend)
-    │   ├── attendance.js                <-- NEW (If separating attendance logic)
+    │   ├── admin_dashboard.js
     │   ├── avenger_dashboard.js
-    │   ├── avengers-payment.js          <-- NEW (If separating payment logic for Avengers)
-    │   ├── my-missions.js               <-- NEW (If separating Avenger mission view)
-    │   ├── my-transactions.js           <-- NEW (If separating Avenger transaction view)
-    │   ├── post-announcements.js        <-- NEW (If separating announcement posting)
     │   ├── register.js
-    │   ├── script.js
-    │   ├── send-money.js                <-- NEW (If separating general money sending)
-    │   ├── stats.js                     <-- NEW (If separating stats view)
+    │   ├── script.js   
     │   ├── style.js
-    │   └── submit-feedback.js           <-- NEW (If separating feedback submission)
-    │   └── view-feedback.js             <-- NEW (If separating feedback viewing)
     │
     ├── videos/
     │   └── marvel_intro.mp4
@@ -108,18 +113,15 @@ src/main/resources/
     ├── images/
     │   ├── avengers.ico
     │   └── marvel_intro_poster.jpg
-    │
-    ├── admin_dashboard.html             <-- Updated/Themed
-    ├── attendance.html                  <-- NEW (If separating attendance page)
-    ├── avenger_dashboard.html
-    ├── avengers-payment.html            <-- NEW (If separating payment page for Avengers)
-    ├── index.html
-    ├── manage-missions.html             <-- NEW (If separating mission management)
-    ├── my-missions.html                 <-- NEW (If separating Avenger mission page)
-    ├── my-transactions.html             <-- NEW (If separating Avenger transaction history)
-    ├── post-announcements.html          <-- NEW (If separating announcement posting page)
-    ├── register.html
-    ├── send-money.html                  <-- NEW (If separating general money sending page)
-    ├── stats.html                       <-- NEW (If separating stats page)
-    ├── submit-feedback.html             <-- NEW (If separating feedback submission page)
-    └── view-feedback.html               <-- NEW (If separating feedback viewing page)
+    |
+    ├── fonts/
+    |
+    |__ node_modules/
+    |
+    |__ public/
+    |__ favicon.ico
+    |__ package-lock.json
+    |__ package.json
+    |__ tailwind.config.js
+    |__ vite.config.js
+

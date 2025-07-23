@@ -1,5 +1,14 @@
 package com.au.cl.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import com.au.cl.dto.PaymentRequest;
 import com.au.cl.dto.TransactionDTO;
 import com.au.cl.model.Transaction;
@@ -7,16 +16,8 @@ import com.au.cl.model.Transaction.TransactionType;
 import com.au.cl.model.User;
 import com.au.cl.repository.TransactionRepository;
 import com.au.cl.repository.UserRepository;
-import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import jakarta.transaction.Transactional;
 
 @Service
 public class TransactionService {
